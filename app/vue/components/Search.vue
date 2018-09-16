@@ -98,7 +98,7 @@ export default {
   border-top-left-radius: $unit/2
   border-bottom-left-radius: $unit/2
   border-radius: $unit/2
-  background: rgba(239, 239, 239, 1)
+  // background: rgba(239, 239, 239, 1)
   transition: background-color 25ms 25ms
 
   &::before
@@ -108,6 +108,7 @@ export default {
     border-radius: $unit/2
     background: rgba(239, 239, 239, 1)
     transition: background-color 0ms 100ms
+    display: none
 
   &::after
     content: ''
@@ -119,6 +120,7 @@ export default {
     border-bottom-right-radius: $unit/2
     background: rgba(239, 239, 239, 1)
     transition: transform 100ms
+    display: none
 
 
 
@@ -129,7 +131,8 @@ export default {
     grid-row: 1 / -1
     grid-column: 1 / 2
     align-self: stretch
-    width: $unit*4
+    width: $unit*5
+    height: $unit*5
 
   &__input
     @extend %flex--row-center
@@ -141,6 +144,7 @@ export default {
     font-size: $fs
     color: $dark
     background: transparent
+    display: none
 
     &::placeholder
       color: $dark
@@ -162,6 +166,7 @@ export default {
     padding: $unit
     background: transparent
     color: #3897f0
+    display: none
 
   &__svg--clear
     width: 12px

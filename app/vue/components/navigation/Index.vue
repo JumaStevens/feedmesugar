@@ -6,16 +6,11 @@ section(
   nav(
     class='nav'
   )
-
-    Hamburger(
-      @handleClick='toggleNavMenu'
-      :active='navMenuActive'
-      class='nav__hamburger'
+    NavBar(
+      class='nav__bar'
     )
 
     NavMenu(
-      @handleRouteChange='closeNavMenu'
-      :active='navMenuActive'
       class='nav__menu'
     )
 
@@ -24,33 +19,19 @@ section(
 
 
 <script>
-import Hamburger from '~comp/navigation/Hamburger.vue'
+import NavBar from '~comp/navigation/NavBar.vue'
 import NavMenu from '~comp/navigation/NavMenu.vue'
-import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
-    Hamburger,
+    NavBar,
     NavMenu
   },
   data () {
     return {}
   },
-  computed: {
-    ...mapState({
-      route: state => state.route,
-      routeId: state => state.route.params.id,
-      navMenuActive: state => state.app.navMenuActive
-    })
-  },
-  methods: {
-
-    ...mapMutations({
-      openNavMenu: 'app/OPEN_NAV_MENU',
-      closeNavMenu: 'app/CLOSE_NAV_MENU',
-      toggleNavMenu: 'app/TOGGLE_NAV_MENU'
-    })
-  }
+  computed: {},
+  methods: {}
 }
 </script>
 
@@ -58,13 +39,19 @@ export default {
 <style lang='sass' scoped>
 
 .container-nav
+  position: relative
+
+  &::after
+    content: ''
+    position: absolute
+    width: 100%
+    height: 1px
+    background: $grey
 
 .nav
   position: relative
 
-  &__hamburger
-    +mq-m
-      display: none
+  &__bar
 
   &__menu
 

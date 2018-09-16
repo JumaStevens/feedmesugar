@@ -1,6 +1,6 @@
 <template lang='pug'>
 div(
-  :class='{ active }'
+  :class='{ active: navMenuActive }'
   class='container-nav-menu'
 )
 
@@ -22,31 +22,35 @@ div(
         to='/account'
         class='nav-menu__link'
       )
-        IconAccount(
-          class='nav-menu__icon'
-        )
 
 </template>
 
 
 <script>
-import IconAccount from '~/assets/svg/logo-account.svg'
+import { mapState, mapMutations } from 'vuex'
 
 
 export default {
   components: {
-    IconAccount
-  },
-  props: {
-    active: {
-      type: Boolean
-    }
   },
   data () {
     return {}
   },
-  computed: {},
-  methods: {}
+  computed: {
+    ...mapState({
+      route: state => state.route,
+      routeId: state => state.route.params.id,
+      navMenuActive: state => state.app.navMenuActive
+    })
+  },
+  methods: {
+
+    ...mapMutations({
+      openNavMenu: 'app/OPEN_NAV_MENU',
+      closeNavMenu: 'app/CLOSE_NAV_MENU',
+      toggleNavMenu: 'app/TOGGLE_NAV_MENU'
+    })
+  }
 }
 </script>
 
@@ -60,19 +64,9 @@ export default {
   height: calc(100vh - #{$unit*5})
   background: grey
   transition: transform 500ms
-  +mq-m
-    position: unset
-    top: unset
-    left: unset
-    width: $unit*5
-    height: 100vh
-    transition: unset
 
   &.active
     transform: translateX(100%)
-    +mq-m
-      transform: unset
-
 
 .nav-menu
   display: grid

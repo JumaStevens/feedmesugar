@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import error from './modules/error'
 import app from './modules/app'
 import auth from './modules/auth'
+import catalog from './modules/catalog'
 
 Vue.use(Vuex)
 
@@ -12,7 +13,8 @@ export default new Vuex.Store({
   modules: {
     error,
     app,
-    auth
+    auth,
+    catalog
   },
   strict: process.env.NODE_ENV !== 'production'
 })

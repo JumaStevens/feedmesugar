@@ -53,9 +53,6 @@ export default {
   height: 100vh
   display: grid
   grid-template-rows: auto 1fr
-  +mq-m
-    grid-template-rows: unset
-    grid-template-columns: auto 1fr
 
   &__nav
 
