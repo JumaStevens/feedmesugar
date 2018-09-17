@@ -1,3 +1,5 @@
 export default {
-  catalog: {}
+  collections: {},
+  products: {},
+  variants: {}
 }

@@ -14,16 +14,22 @@ main(
     router-view(
       class='vue-app__view'
     )
+
+  AppFooter(
+    class='vue-app__footer'
+  )
 </template>
 
 
 <script>
 import Error404 from './views/Error404.vue'
 import Navigation from '~comp/navigation/Index.vue'
+import AppFooter from '~comp/footer/Index.vue'
 
 export default {
   components: {
     Navigation,
+    AppFooter,
     Error404
   },
   data () {
@@ -58,5 +64,7 @@ export default {
 
   &__error,
   &__view
+    display: contents
+    min-height: 100vh
 
 </style>
