@@ -1,0 +1,194 @@
+<template lang='pug'>
+div(class='container-controller')
+
+  div(class='controller')
+
+    //- size select
+    div(
+      v-if='options.size'
+      class='controller__size'
+    )
+      p(class='controller__size-label') Size
+      a(
+        v-for='(size, index) in options.size'
+        :key='size + index'
+        @click='setActiveVariant({ optionValue: size })'
+        :class='{ active: activeVariant.options.includes(size) }'
+        class='controller__size-button'
+      ) {{ size }}
+
+    //- color select
+    div(
+      v-if='options.color'
+      class='controller__color'
+    )
+      p(class='controller__color-label') Color
+      a(
+        v-for='(color, index) in options.color'
+        :key='color + index'
+        @click='setActiveVariant({ optionValue: color })'
+        :class='{ active: activeVariant.options.includes(color) }'
+        class='controller__color-button'
+      ) {{ color }}
+
+    //- quantity select
+    div(class='controller__quantity')
+      a(
+        class='controller__quantity-button'
+        @click='quantity--'
+      ) -
+      p(
+        class='controller__quantity-count'
+      ) {{ quantity }}
+      a(
+        class='controller__quantity-button'
+        @click='quantity++'
+      ) +
+
+</template>
+
+
+<script>
+
+
+export default {
+  components: {},
+  props: {
+    product: {
+      type: Object,
+      required: true
+    },
+    variants: {
+      type: Object,
+      required: true
+    }
+  },
+  data () {
+    return {
+      quantity: 1,
+      activeVariant: {}
+    }
+  },
+  computed: {
+    options () {
+      return {
+        size: this.extractProductOptions({ name: 'size' }),
+        color: this.extractProductOptions({ name: 'color' })
+      }
+    }
+  },
+  watch: {
+    quantity (value) {
+      if (value < 1) this.quantity = 1
+    },
+
+
+    activeVariant () {
+      this.emitActiveVariant()
+    }
+  },
+  methods: {
+    setActiveVariant ({ optionValue }) {
+      const options = Object.keys(this.options).map(key => this.options[key])
+      const variants = Object.keys(this.variants).map(key => this.variants[key])
+
+      // find array that optionValue belongs, replace comparable value
+      const newOptions = this.activeVariant.options.map(option => {
+        let newOption = option
+        options.forEach(o => {
+          if (o.includes(option) && o.includes(optionValue)) newOption = optionValue
+        })
+        return newOption
+      })
+
+      // find variant that newOptions values match
+      const variant = variants.find(variant => {
+        return variant.options.every(option => newOptions.includes(option))
+      })
+
+      variant ? this.activeVariant = variant : null
+    },
+
+
+    initActiveVariant () {
+      const variants = Object.keys(this.variants).map(key => this.variants[key])
+      const activeVariant = variants.find(variant => variant.available)
+      this.activeVariant = activeVariant ? activeVariant : this.variants[0]
+    },
+
+
+    emitActiveVariant () {
+      this.$emit('activeVariant', this.activeVariant)
+    },
+
+
+    extractProductOptions ({ name }) {
+      const reg = new RegExp(name, 'i')
+      const { options } = this.product
+      const values = options.find(option => option.name.match(reg))
+      return values ? values.values.map(value => value.value) : []
+    }
+  },
+  mounted () {
+    this.initActiveVariant()
+  }
+}
+</script>
+
+
+<style lang='sass' scoped>
+
+.container-controller
+
+.controller
+  width: min-content
+  display: grid
+  grid-gap: $unit*3 0
+  // padding: $unit*2 0
+
+  &__size,
+  &__color
+    width: min-content
+    display: grid
+    grid-template-rows: repeat(2, auto)
+    grid-gap: $unit*2 $unit
+
+    &-label
+      grid-row: 1 / 2
+
+    &-button
+      grid-row: 2 / 3
+      width: $unit*5
+      height: $unit*5
+      display: flex
+      justify-content: center
+      align-items: center
+      border-radius: 50%
+      border: 1px solid $grey
+      user-select: none
+
+      &.active
+        border-color: $black
+
+
+  &__quantity
+    width: min-content
+    display: grid
+    grid-auto-flow: column
+
+    &-button,
+    &-count
+      display: flex
+      justify-content: center
+      align-items: center
+      width: $unit*5
+      height: $unit*5
+
+    &-button
+      border-radius: 50%
+      border: 1px solid $grey
+      user-select: none
+
+    &-count
+
+</style>

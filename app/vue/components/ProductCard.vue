@@ -1,7 +1,10 @@
 <template lang='pug'>
 div(class='container-product')
 
-  aside(class='product')
+  router-link(
+    :to='{ name: "product", params: { id: product.id } }'
+    class='product'
+  )
 
     Photo(
       :image='{ src: product.images[0].src, aspectRatio: "0 0 1 1" }'

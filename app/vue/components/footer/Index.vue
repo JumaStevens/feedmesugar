@@ -9,16 +9,16 @@ div(class='container-footer')
         a(class='footer__social-link')
 
     //- site navigation
-    ul(class='footer__nav-list')
-      li(
-        v-for='(nav, index) in navLinks'
-        :key='nav.text + index'
-        class='footer__nav-item'
-      )
-        router-link(
-          :to='{ name: nav.name }'
-          class='footer__nav-link'
-        ) {{ nav.text }}
+    //- ul(class='footer__nav-list')
+    //-   li(
+    //-     v-for='(nav, index) in navLinks'
+    //-     :key='nav.text + index'
+    //-     class='footer__nav-item'
+    //-   )
+    //-     router-link(
+    //-       :to='{ name: nav.name }'
+    //-       class='footer__nav-link'
+    //-     ) {{ nav.text }}
 
     //- copyright
     p(class='footer__copyright') &copy; {{ currentYear }} Feed Me Sugar
