@@ -6,11 +6,11 @@ div(class='container-image-ratio-sizer')
       :viewBox='image.aspectRatio'
       class='image-ratio-sizer__svg'
     )
-    div(
+    lazy-component(
       class='image-ratio-sizer__wrapper'
     )
       img(
-        v-lazy='image.src'
+        :src='image.src'
         class='image-ratio-sizer__image'
       )
       div(class='image-ratio-sizer__transition-wrapper')

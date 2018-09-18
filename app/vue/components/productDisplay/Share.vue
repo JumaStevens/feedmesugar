@@ -1,7 +1,12 @@
 <template lang='pug'>
-div(class='container')
+div(class='container-share')
 
-  div(class='')
+  div(class='share')
+    h3(class='share__title') Share
+    ul(class='share__list')
+      li(class='share__item')
+        a(class='share__link')
+
 
 </template>
 

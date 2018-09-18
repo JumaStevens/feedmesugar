@@ -61,7 +61,6 @@ export default {
   grid-gap: $unit*5
   justify-items: center
   padding: $unit*5
-  margin-top: $unit*10
   background: rgba(248, 248, 248, 1)
 
   &__social-list,

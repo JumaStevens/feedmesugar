@@ -60,7 +60,7 @@ export default {
   position: absolute
   top: $unit*5
   left: -100%
-  width: 100vw
+  width: 100%
   height: calc(100vh - #{$unit*5})
   background: grey
   transition: transform 500ms

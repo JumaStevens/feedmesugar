@@ -40,7 +40,7 @@ export default {
 .submit
 
   &__add-to-cart
-    width: $unit*20
+    width: 100%
     height: $unit*8
     display: flex
     justify-content: center

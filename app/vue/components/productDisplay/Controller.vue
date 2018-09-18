@@ -5,7 +5,7 @@ div(class='container-controller')
 
     //- size select
     div(
-      v-if='options.size'
+      v-if='options.size.length'
       class='controller__size'
     )
       p(class='controller__size-label') Size
@@ -19,7 +19,7 @@ div(class='container-controller')
 
     //- color select
     div(
-      v-if='options.color'
+      v-if='options.color.length'
       class='controller__color'
     )
       p(class='controller__color-label') Color
@@ -59,7 +59,7 @@ export default {
       required: true
     },
     variants: {
-      type: Object,
+      type: Array,
       required: true
     }
   },
@@ -90,7 +90,6 @@ export default {
   methods: {
     setActiveVariant ({ optionValue }) {
       const options = Object.keys(this.options).map(key => this.options[key])
-      const variants = Object.keys(this.variants).map(key => this.variants[key])
 
       // find array that optionValue belongs, replace comparable value
       const newOptions = this.activeVariant.options.map(option => {
@@ -102,7 +101,7 @@ export default {
       })
 
       // find variant that newOptions values match
-      const variant = variants.find(variant => {
+      const variant = this.variants.find(variant => {
         return variant.options.every(option => newOptions.includes(option))
       })
 
@@ -111,8 +110,7 @@ export default {
 
 
     initActiveVariant () {
-      const variants = Object.keys(this.variants).map(key => this.variants[key])
-      const activeVariant = variants.find(variant => variant.available)
+      const activeVariant = this.variants.find(variant => variant.available)
       this.activeVariant = activeVariant ? activeVariant : this.variants[0]
     },
 
@@ -129,7 +127,7 @@ export default {
       return values ? values.values.map(value => value.value) : []
     }
   },
-  mounted () {
+  created () {
     this.initActiveVariant()
   }
 }
@@ -166,9 +164,12 @@ export default {
       border-radius: 50%
       border: 1px solid $grey
       user-select: none
+      color: $grey
 
       &.active
-        border-color: $black
+        border: unset
+        box-shadow: 0 $unit $unit*3 rgba(34, 34, 34, 0.15)
+        color: $black
 
 
   &__quantity

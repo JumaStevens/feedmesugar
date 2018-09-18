@@ -1,6 +1,8 @@
 <template lang='pug'>
-div
+div(class='container')
 
+  div(class='')
+    p TO DO: Write shipping and return policy.
 </template>
 
 

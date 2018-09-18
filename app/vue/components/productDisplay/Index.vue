@@ -3,16 +3,18 @@ div(class='container-product-display')
 
   div(class='product-display')
 
-    Product(
+    Display(
+      :variant='activeVariant'
       class='product-display__product'
     )
 
     Detail(
       :product='product'
+      :variant='activeVariant'
       class='product-display__detail'
     )
 
-    div(class='product-display__divider')
+    div(class='product-display__divider divider-0')
 
     Controller(
       :product='product'
@@ -21,28 +23,35 @@ div(class='container-product-display')
       class='product-display__controller'
     )
 
-    div(class='product-display__divider')
+    div(class='product-display__divider divider-1')
 
     Submit(
       class='product-display__submit'
     )
 
-    pre {{ variants }}
+    div(class='product-display__divider divider-2')
+
+    Share(
+      class='product-display__share'
+    )
 </template>
 
 
 <script>
-import Detail from '~comp/productDisplay/Detail.vue'
-import Controller from '~comp/productDisplay/Controller.vue'
-import Product from '~comp/productDisplay/Product.vue'
-import Submit from '~comp/productDisplay/Submit.vue'
+import Detail from './Detail.vue'
+import Controller from './Controller.vue'
+import Display from './Display.vue'
+import Submit from './Submit.vue'
+import Share from './Share.vue'
+
 
 export default {
   components: {
     Detail,
     Controller,
-    Product,
-    Submit
+    Display,
+    Submit,
+    Share
   },
   props: {
     product: {
@@ -57,22 +66,18 @@ export default {
   },
   computed: {
     variants () {
-      const variantData = {}
       const { variants } = this.product
 
-      variants.forEach(variant => {
-        const { id, available, image, price } = variant
+      return variants.map(variant => {
+        const { id, available, image, price, compareAtPrice } = variant
         const options = variant.title.split('/').map(item => item.trim())
-        variantData[id] = { id, available, image, price, options }
+        return { id, available, image, price, compareAtPrice, options }
       })
-
-      return variantData
     }
   },
   methods: {
     setActiveVariant (variant) {
       this.activeVariant = variant
-      console.log('set active variant: ', variant)
     }
   }
 }
@@ -85,19 +90,57 @@ export default {
 
 .product-display
   display: grid
-  grid-gap: $unit*2 0
+  grid-gap: $unit*5 0
+  +mq-m
+    grid-template-rows: repeat(7, auto)
+    grid-template-columns: 2fr 1fr
+    grid-gap: $unit*5 $unit*10
 
   &__product
+    +mq-m
+      grid-row: 1 / -1
+      grid-column: 1 / 2
 
   &__detail
+    +mq-m
+      grid-row: 1 / 2
+      grid-column: 2 / 3
 
   &__controller
+    +mq-m
+      grid-row: 3 / 4
+      grid-column: 2 / 3
 
   &__submit
+    +mq-m
+      grid-row: 5 / 6
+      grid-column: 2 / 3
+
+  &__share
+    +mq-m
+      grid-row: 7 / 8
+      grid-column: 2 / 3
 
   &__divider
     height: 1px
     background: $grey
+    +mq-m
+      align-self: center
+
+    &.divider-0
+      +mq-m
+        grid-row: 2 / 3
+        grid-column: 2 / 3
+
+    &.divider-1
+      +mq-m
+        grid-row: 4 / 5
+        grid-column: 2 / 3
+
+    &.divider-2
+      +mq-m
+        grid-row: 6 / 7
+        grid-column: 2 / 3
 
 
 
