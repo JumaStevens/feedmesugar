@@ -15,17 +15,22 @@ div(class='container-cart-item')
     p(
       v-show='color'
       class='cart-item__color'
-    ) {{ color }}
+    )
+      IconColor(class='cart-item__color-icon')
+      | {{ color }}
 
     p(
       v-show='size'
       class='cart-item__size'
-    ) {{ size }}
+    )
+      IconSize(class='cart-item__size-icon')
+      | {{ size }}
 
     a(
       @click='removeLineItems({ lineItems: [ item.id ] })'
       class='cart-item__remove'
-    ) X
+    )
+      IconCancel(class='cart-item__remove-icon')
 
     div(class='cart-item__quantity')
       a(
@@ -48,11 +53,17 @@ div(class='container-cart-item')
 import { mapActions } from 'vuex'
 import _ from 'lodash'
 import Photo from '~comp/Photo.vue'
+import IconColor from '~/assets/svg/icon-color.svg'
+import IconSize from '~/assets/svg/icon-size.svg'
+import IconCancel from '~/assets/svg/icon-cancel.svg'
 
 
 export default {
   components: {
-    Photo
+    Photo,
+    IconColor,
+    IconSize,
+    IconCancel
   },
   props: {
     item: {
@@ -67,7 +78,6 @@ export default {
   },
   computed: {
     variant () {
-      console.log('variant: ', this.item.variant)
       return this.item.variant
     },
 
@@ -85,7 +95,7 @@ export default {
 
     size () {
       const option = this.variant.selectedOptions.find(option => option.name.match(/size/i))
-      return option ? option.value : ''
+      return option ? option.value : 'XS'
     },
 
 
@@ -103,7 +113,6 @@ export default {
     updateLineItemsDebounce: _.debounce(function() {
       const lineItems = [{ id: this.item.id, quantity: this.quantity }]
       this.updateLineItems({ lineItems })
-      console.log("???")
     }, 2000),
 
 
@@ -123,11 +132,13 @@ export default {
 .container-cart-item
 
 .cart-item
-  width: 75%
   display: grid
   grid-template-rows: repeat(3, auto) 1fr
   grid-template-columns: repeat(3, auto) 1fr auto
   grid-gap: $unit $unit*2
+  padding: $unit*2
+  box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
+  background: $white
 
   &__image
     grid-row: 1 / -1
@@ -150,11 +161,23 @@ export default {
     grid-row: 3 / 4
     grid-column: 2 / 3
     text-transform: capitalize
+    display: flex
+
+    &-icon
+      width: $unit*2
+      height: $unit*2
+      margin-right: $unit
 
   &__size
     grid-row: 3 / 4
     grid-column: 3 / 4
     text-transform: capitalize
+    display: flex
+
+    &-icon
+      width: $unit*2
+      height: $unit*2
+      margin-right: $unit
 
   &__quantity
     grid-row: 4 / 5
@@ -162,8 +185,16 @@ export default {
     align-self: end
 
   &__remove
-    grid-row: 1 / 2
+    width: $unit*5
+    height: $unit*5
+    grid-row: 1 / -1
     grid-column: 5 / 6
+    display: flex
+    justify-content: center
+    align-items: center
+
+    &-icon
+      width: $unit*2
 
   &__price,
   &__color,

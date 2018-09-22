@@ -1,13 +1,24 @@
 <template lang='pug'>
 div(class='container-cart-list')
 
-  ul(class='cart-list')
+  ul(
+    v-if='checkout.lineItems.length'
+    class='cart-list'
+  )
+
     CartItem(
       v-for='(item, index) in checkout.lineItems'
       :key='item.id'
       :item='item'
       class='cart-list__item'
     )
+
+  div(
+    v-else
+    class='cart-list__empty'
+  )
+    h3(class='cart-list__empty-title') {{ emptyCart.title }}
+    p(class='cart-list__empty-copy') {{ emptyCart.copy }}
 
 </template>
 
@@ -27,7 +38,12 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      emptyCart: {
+        title: '😱',
+        copy: 'Your cart is empty, but it doesn\'t have to be.'
+      }
+    }
   },
   computed: {},
   methods: {}
@@ -36,6 +52,23 @@ export default {
 
 
 <style lang='sass' scoped>
-.container
+.container-cart-list
+
+.cart-list
+  display: grid
+  grid-gap: $unit*3 0
+
+  &__empty
+    display: grid
+    grid-gap: $unit*2 0
+    justify-items: center
+    padding: $unit*10 0
+
+
+    &-title
+      font-size: $fs4
+
+    &-copy
+      text-align: center
 
 </style>

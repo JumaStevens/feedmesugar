@@ -6,9 +6,10 @@ div(class='container-cart')
     class='cart'
   )
 
-    header(class='cart__header')
-      h2(class='cart__header-title') Your Shopping Bag
-      p(class='cart__header-copy') Review of {{ lineItemsQuantityTotal }} items ${{ checkout.totalPrice }}
+    CartHeader(
+      :checkout='checkout'
+      class='cart__header'
+    )
 
     CartList(
       :checkout='checkout'
@@ -26,6 +27,7 @@ div(class='container-cart')
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Header from '~comp/cart/Header.vue'
 import CartList from '~comp/cart/CartList.vue'
 import DiscountEntry from '~comp/cart/DiscountEntry.vue'
 import Submit from '~comp/cart/Submit.vue'
@@ -33,6 +35,7 @@ import Submit from '~comp/cart/Submit.vue'
 
 export default {
   components: {
+    CartHeader: Header,
     CartList,
     DiscountEntry,
     Submit
@@ -42,11 +45,6 @@ export default {
     return {}
   },
   computed: {
-    lineItemsQuantityTotal () {
-      return this.checkout.lineItems.reduce((acc, cur) => acc + cur.quantity, 0)
-    },
-
-
     ...mapState({
       checkout: state => state.checkout
     })
@@ -76,7 +74,8 @@ export default {
 
 .cart
   display: grid
-  grid-template-rows: repeat(5, auto)
+  grid-template-rows: repeat(4, auto)
+  grid-gap: $unit*10 0
 
   &__header
     grid-row: 1 / 2
@@ -89,7 +88,5 @@ export default {
 
   &__submit
     grid-row: 4 / 5
-
-
 
 </style>
