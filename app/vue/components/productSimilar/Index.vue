@@ -4,7 +4,7 @@ div(class='container-product-similar')
   div(class='product-similar')
 
     section(class='products-block')
-      h2(class='products-block__header') Best Sellers
+      h2(class='products-block__header') You Might Also Like
       ul(class='products-block__list')
         li(
           v-for='(product, index) in similarProducts'

@@ -6,6 +6,10 @@ main(
     class='vue-app__nav'
   )
 
+  Cart(
+    vue-app__cart
+  )
+
   transition
     Error404(
       v-if='error.isError && error.type == "404"'
@@ -29,6 +33,7 @@ main(
 <script>
 import Error404 from './views/Error404.vue'
 import Navigation from '~comp/navigation/Index.vue'
+import Cart from '~comp/cart/Index.vue'
 import NewsletterSubscribe from '~comp/newsletterSubscribe/Index.vue'
 import AppFooter from '~comp/footer/Index.vue'
 
@@ -36,6 +41,7 @@ import AppFooter from '~comp/footer/Index.vue'
 export default {
   components: {
     Navigation,
+    Cart,
     NewsletterSubscribe,
     AppFooter,
     Error404
@@ -69,6 +75,9 @@ export default {
 
   &__nav
     grid-row: 1 / 2
+
+  &__cart
+    
 
   &__error,
   &__view

@@ -2,6 +2,21 @@
 main(class='container-index')
 
   div(class='index')
+    //- HERO
+    //- FEATURED COLLECTIONS
+    //- DEAL OF THE DAY
+    //- COLLECTION
+    //- ACCOUNT PROMOTIONS - EARN POINTS/INVITE A FRIEND/AFFILIATE LINKING, ETC
+    //- COLLECTION
+    //- THE CULTURE
+    //- EMAIL SUBSCRIPTION
+    //- FOOTER
+
+    Hero(
+      :image='hero.image'
+      :header='hero.header'
+      class='index-hero'
+    )
 
     section(class='promotion-block')
 
@@ -23,15 +38,29 @@ main(class='container-index')
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import Hero from '~comp/Hero.vue'
 import ProductCard from '~comp/ProductCard.vue'
+import heroImage from '~/assets/images/hero_index.jpg'
 
 
 export default {
   components: {
+    Hero,
     ProductCard
   },
   data () {
-    return {}
+    return {
+      hero: {
+        image: {
+          src: heroImage,
+          aspectRatio: '0 0 1 1'
+        },
+        header: {
+          title: 'Feed Me Sugar',
+          copy: ''
+        }
+      }
+    }
   },
   computed: {
     ...mapState({

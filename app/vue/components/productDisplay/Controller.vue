@@ -80,6 +80,7 @@ export default {
   watch: {
     quantity (value) {
       if (value < 1) this.quantity = 1
+      this.emitQuantity()
     },
 
 
@@ -117,6 +118,11 @@ export default {
 
     emitActiveVariant () {
       this.$emit('activeVariant', this.activeVariant)
+    },
+
+
+    emitQuantity () {
+      this.$emit('quantity', this.quantity)
     },
 
 

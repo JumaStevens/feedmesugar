@@ -8,6 +8,7 @@ div(class='container-submit')
 
     input(
       @click='addToCart'
+      :class='{ valid: variant.available }'
       value='Add To Cart'
       type='submit'
       class='submit__add-to-cart'
@@ -17,18 +18,42 @@ div(class='container-submit')
 
 
 <script>
+import { mapActions } from 'vuex'
+
 
 export default {
   components: {},
-  props: {},
+  props: {
+    variant: {
+      type: Object,
+      required: true
+    },
+    quantity: {
+      type: Number,
+      required: true
+    }
+  },
   data () {
     return {}
   },
   computed: {},
   methods: {
-    addToCart () {
-      console.log('addToCart: ', )
-    }
+    async addToCart () {
+      if (!this.variant.available) return
+
+      try {
+        const lineItems = [{ variantId: this.variant.id, quantity: this.quantity }]
+        await this.addLineItems({ lineItems })
+      }
+      catch (e) {
+        console.log(e)
+      }
+    },
+
+
+    ...mapActions({
+      addLineItems: 'checkout/addLineItems'
+    })
   }
 }
 </script>

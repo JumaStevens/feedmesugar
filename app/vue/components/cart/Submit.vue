@@ -1,6 +1,8 @@
 <template lang='pug'>
-div
-  h1 side hussel
+div(class='container')
+
+  div(class='')
+
 </template>
 
 
@@ -8,9 +10,12 @@ div
 
 export default {
   components: {},
+  props: {},
   data () {
     return {}
-  }
+  },
+  computed: {},
+  methods: {}
 }
 </script>
 

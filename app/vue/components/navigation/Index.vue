@@ -39,14 +39,14 @@ export default {
 <style lang='sass' scoped>
 
 .container-nav
-  position: relative
-
-  &::after
-    content: ''
-    position: absolute
-    width: 100%
-    height: 1px
-    background: $grey
+  // position: relative
+  //
+  // &::after
+  //   content: ''
+  //   position: absolute
+  //   width: 100%
+  //   height: 1px
+  //   background: $grey
 
 .nav
   position: relative

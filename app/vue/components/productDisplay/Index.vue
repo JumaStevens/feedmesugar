@@ -20,12 +20,15 @@ div(class='container-product-display')
       :product='product'
       :variants='variants'
       @activeVariant='setActiveVariant'
+      @quantity='setQuantity'
       class='product-display__controller'
     )
 
     div(class='product-display__divider divider-1')
 
     Submit(
+      :variant='activeVariant'
+      :quantity='quantity'
       class='product-display__submit'
     )
 
@@ -61,7 +64,8 @@ export default {
   },
   data () {
     return {
-      activeVariant: {}
+      activeVariant: {},
+      quantity: 1
     }
   },
   computed: {
@@ -78,6 +82,12 @@ export default {
   methods: {
     setActiveVariant (variant) {
       this.activeVariant = variant
+      console.log('activeVariant: ', this.activeVariant)
+    },
+
+
+    setQuantity (value) {
+      this.quantity = value
     }
   }
 }
