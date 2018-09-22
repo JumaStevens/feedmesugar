@@ -73,7 +73,7 @@ export default {
   },
   data () {
     return {
-      quantity: 1
+      quantity: this.item.quantity
     }
   },
   computed: {
@@ -120,9 +120,6 @@ export default {
       updateLineItems: 'checkout/updateLineItems',
       removeLineItems: 'checkout/removeLineItems'
     })
-  },
-  created () {
-    this.quantity = this.item.quantity
   }
 }
 </script>

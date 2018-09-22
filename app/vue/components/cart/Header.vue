@@ -9,7 +9,7 @@ div(class='container-header')
 
 
 <script>
-
+import { mapGetters } from 'vuex'
 
 export default {
   components: {},
@@ -23,9 +23,9 @@ export default {
     return {}
   },
   computed: {
-    lineItemsQuantityTotal () {
-      return this.checkout.lineItems.reduce((acc, cur) => acc + cur.quantity, 0)
-    }
+    ...mapGetters({
+      lineItemsQuantityTotal: 'checkout/lineItemsQuantityTotal'
+    })
   },
   methods: {}
 }

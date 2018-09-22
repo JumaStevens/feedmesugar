@@ -2,7 +2,7 @@
 div(class='container-cart')
 
   div(
-    v-if='checkout'
+    v-if='!isCheckoutEmpty'
     class='cart'
   )
 
@@ -26,7 +26,8 @@ div(class='container-cart')
 
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
+import _ from 'lodash'
 import Header from '~comp/cart/Header.vue'
 import CartList from '~comp/cart/CartList.vue'
 import DiscountEntry from '~comp/cart/DiscountEntry.vue'
@@ -45,34 +46,28 @@ export default {
     return {}
   },
   computed: {
+    isCheckoutEmpty () {
+      return _.isEmpty(this.checkout)
+    },
+
+
     ...mapState({
       checkout: state => state.checkout
     })
   },
-  methods: {
-    ...mapActions({
-      initCheckout: 'checkout/initCheckout'
-    })
-  },
-  created () {
-    this.initCheckout()
-  }
+  methods: {}
 }
 </script>
 
 
 <style lang='sass' scoped>
 .container-cart
-  // display: none
-  position: fixed
-  z-index: 99
-  top: 0
-  left: 0
-  width: 100%
-  min-height: 100vh
-  background: white
+
 
 .cart
+  width: 75%
+  max-width: 1024px
+  margin: $unit*10 auto 0 auto
   display: grid
   grid-template-rows: repeat(4, auto)
   grid-gap: $unit*10 0

@@ -18,8 +18,11 @@ main(class='container-index')
       class='index-hero'
     )
 
-    section(class='promotion-block')
-
+    DealOfTheDay(
+      v-if='productDealOfTheDay'
+      :product='productDealOfTheDay'
+      class='index__promotion'
+    )
 
     section(class='products-block')
       h2(class='products-block__header') Best Sellers
@@ -37,16 +40,20 @@ main(class='container-index')
 
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Hero from '~comp/Hero.vue'
-import ProductCard from '~comp/ProductCard.vue'
 import heroImage from '~/assets/images/hero_index.jpg'
+import ProductCard from '~comp/ProductCard.vue'
+import DealOfTheDay from '~comp/dealOfTheDay/Index.vue'
+
+
 
 
 export default {
   components: {
     Hero,
-    ProductCard
+    ProductCard,
+    DealOfTheDay
   },
   data () {
     return {
@@ -63,18 +70,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      productDealOfTheDay: 'catalog/productDealOfTheDay'
+    }),
+
+
     ...mapState({
       products: state => state.catalog.products
     })
   },
-  methods: {
-    ...mapActions({
-      fetchProducts: 'catalog/fetchProducts'
-    })
-  },
-  mounted () {
-    this.fetchProducts()
-  }
+  methods: {}
 }
 </script>
 

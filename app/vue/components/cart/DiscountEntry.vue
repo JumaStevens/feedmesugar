@@ -85,7 +85,6 @@ export default {
       width: $unit*3
       grid-row: 1 / -1
       grid-column: 1 / 2
-      align-self: center
 
     &-title
       grid-row: 1 / 2
@@ -100,6 +99,7 @@ export default {
 
   &__form
     justify-self: start
+    display: flex
     margin-left: $unit*5
     border: 1px solid $grey
     +mq-m
@@ -112,5 +112,6 @@ export default {
     &-submit
       height: $unit*5
       padding: 0 $unit
+      background: transparent
 
 </style>

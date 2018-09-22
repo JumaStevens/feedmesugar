@@ -2,6 +2,8 @@ import Index from '~/views/Index.vue'
 import Auth from '~/views/Auth.vue'
 import Account from '~/views/Account.vue'
 import Product from '~/views/Product.vue'
+import Collection from '~/views/Collection.vue'
+import Cart from '~/views/Cart.vue'
 
 export const routes = [
   {
@@ -23,5 +25,15 @@ export const routes = [
     path: '/product/:id',
     name: 'product',
     component: Product
+  },
+  {
+    path: '/collection/:id',
+    name: 'collection',
+    component: Collection
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart
   }
 ]

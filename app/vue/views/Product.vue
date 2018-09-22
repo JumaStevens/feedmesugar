@@ -26,7 +26,7 @@ main(class='container-product')
 
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import ProductDisplay from '~comp/productDisplay/Index.vue'
 import ProductDetail from '~comp/productDetail/Index.vue'
 import ProductSimilar from '~comp/productSimilar/Index.vue'
@@ -51,14 +51,6 @@ export default {
       productId: state => state.route.params.id,
       products: state => state.catalog.products
     })
-  },
-  methods: {
-    ...mapActions({
-      fetchProducts: 'catalog/fetchProducts'
-    })
-  },
-  mounted () {
-    this.fetchProducts()
   }
 }
 </script>
