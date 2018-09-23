@@ -88,6 +88,8 @@ export default {
     padding-right: $unit
     font-size: $fs2
     background: $white
+    +mq-m
+      background: unset
 
     &-strike
       position: absolute
@@ -101,11 +103,11 @@ export default {
       transform: translate(-100%, -50%)
       transition: transform 150ms ease-out
       +mq-m
-        z-index: 1
+        z-index: -1
 
     &:hover &-strike
       opacity: 0.5
-      transform: translate(0%, -50%)
+      transform: translate(10%, -50%)
 
 
   &__palette

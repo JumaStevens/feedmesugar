@@ -50,7 +50,7 @@ export default {
 
 .product
   display: grid
-  grid-template-rows: min-content repeat(2, auto)
+  grid-template-rows: repeat(3, min-content)
   grid-gap: $unit 0
   box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
   padding: $unit $unit $unit*4 $unit

@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 export default {
   SET_COLLECTIONS (state, { collection }) {
+    console.log('SET_COLLECTIONS: ', collection)
     Vue.set(state.collections, collection.id, collection)
   },
 

@@ -121,17 +121,17 @@ export default {
 
   &__search
     +mq-m
-      grid-row: 1 / 2
+      grid-row: 6 / 7
       grid-column: 1 / 2
 
   &__account
     +mq-m
-      grid-row: 6 / 7
+      grid-row: 7 / 8
       grid-column: 1 / 2
 
   &__bag
     +mq-m
-      grid-row: 7 / 8
+      grid-row: 1 / 2
       grid-column: 1 / 2
 
   &__shop-logo
