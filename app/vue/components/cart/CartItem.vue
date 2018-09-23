@@ -95,7 +95,7 @@ export default {
 
     size () {
       const option = this.variant.selectedOptions.find(option => option.name.match(/size/i))
-      return option ? option.value : 'XS'
+      return option ? option.value : ''
     },
 
 
@@ -113,7 +113,7 @@ export default {
     updateLineItemsDebounce: _.debounce(function() {
       const lineItems = [{ id: this.item.id, quantity: this.quantity }]
       this.updateLineItems({ lineItems })
-    }, 2000),
+    }, 1000),
 
 
     ...mapActions({

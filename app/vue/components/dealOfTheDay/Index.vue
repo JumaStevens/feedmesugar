@@ -29,7 +29,7 @@ div(
       )
       p(class='promotion__product-discount')
         span(class='promotion__product-discount-copy') {{ discountPercent }}%
-        span(class='promotion__product-discount-copy') off!
+        span(class='promotion__product-discount-copy') OFF!
 
     router-link(
       :to='{ name: "product", params: { id: product.id } }'
@@ -56,22 +56,17 @@ export default {
   },
   data () {
     return {
-      date: moment.duration(1, 'day')
+      countDown: {
+        hours: '00',
+        minutes: '00',
+        seconds: '00'
+      }
     }
   },
   computed: {
-    countDown () {
-      return {
-        hours: '12',
-        minutes: '01',
-        seconds: '57'
-      }
-    },
-
-
     discountPercent () {
       const { price, compareAtPrice } = this.product.variants[0]
-      return price * 100 / compareAtPrice - 100
+      return Math.round(price * 100 / compareAtPrice - 100) * -1
     },
 
 
@@ -84,13 +79,20 @@ export default {
   },
   methods: {
     handleCountDown () {
+      const updatedAt = moment(this.product.updatedAt)
+      const end = moment().endOf('day')
+      const timeLeft = moment(end.diff(moment() - updatedAt))
+
       setInterval(() => {
-        this.date = moment(this.date.subtract(1, 'seconds'))
+        timeLeft.subtract(1, 'seconds')
+        this.countDown.hours = timeLeft.format('HH')
+        this.countDown.minutes = timeLeft.format('mm')
+        this.countDown.seconds = timeLeft.format('ss')
       }, 1000)
     }
   },
   created () {
-    // this.handleCountDown()
+    this.handleCountDown()
   }
 }
 </script>

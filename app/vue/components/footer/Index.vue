@@ -30,6 +30,7 @@ div(class='container-footer')
 <script>
 import moment from 'moment'
 
+
 export default {
   components: {},
   props: {},

@@ -99,6 +99,7 @@ export default {
 
   &__form
     justify-self: start
+    height: min-content
     display: flex
     margin-left: $unit*5
     border: 1px solid $grey

@@ -3,10 +3,10 @@ div(class='container-detail')
 
   div(class='detail')
 
-    h2(class='detail__title') Pretty Summer Dress
+    h2(class='detail__title') {{ product.title }}
     p(class='detail__price') ${{ variant.price }}
     p(
-
+      v-show='variant.compareAtPrice > variant.price'
       class='detail__compare-at-price'
     ) ${{ variant.compareAtPrice }}
 
