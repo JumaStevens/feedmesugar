@@ -15,7 +15,6 @@ main(
       class='vue-app__error'
     )
     router-view(
-      :key='this.$route.fullPath'
       class='vue-app__view'
     )
 
@@ -103,11 +102,11 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active
-  transition: opacity 50ms
+  transition: opacity 150ms ease-in
 
 .fade-enter,
 .fade-leave-to
-  opacity: .15
+  opacity: 0
 
 
 </style>

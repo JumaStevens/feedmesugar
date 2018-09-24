@@ -27,9 +27,10 @@ div(class='container-controller')
         v-for='(color, index) in options.color'
         :key='color + index'
         @click='setActiveVariant({ optionValue: color })'
+        :style='{ background: colorOptionHex[color.toLowerCase()] ? colorOptionHex[color.toLowerCase()] : null }'
         :class='{ active: activeVariant.options.includes(color) }'
         class='controller__color-button'
-      ) {{ color }}
+      )
 
     //- quantity select
     div(class='controller__quantity')
@@ -71,10 +72,28 @@ export default {
   },
   computed: {
     options () {
+      console.log('color value: ', this.extractProductOptions({ name: 'color' }))
+      console.log('color hex: ', this.product.tags)
       return {
         size: this.extractProductOptions({ name: 'size' }),
         color: this.extractProductOptions({ name: 'color' })
       }
+    },
+
+
+    colorOptionHex () {
+      const key = { color: 'color_', hex: '#' } // example product tag: color_yellow_#F8EB59
+      const colorHex = {}
+
+      this.product.tags.forEach(tag => {
+        const index = { color: tag.value.indexOf(key.color), hex: tag.value.indexOf(key.hex) }
+        if (index.color < 0 || index.hex < 0) return
+
+        const color = tag.value.substring(key.color.length, index.hex - 1).split('_').join(' ')
+        const hex = tag.value.substring(index.hex)
+        colorHex[color] = hex
+      })
+      return colorHex
     }
   },
   watch: {

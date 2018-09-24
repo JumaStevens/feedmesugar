@@ -18,10 +18,34 @@ main(class='container-index')
       class='index-hero'
     )
 
+    CollectionBlock(
+      v-if='featuredCollection'
+      :collection='featuredCollection'
+      :reverse='true'
+      class='index__featured-collection'
+    )
+
     DealOfTheDay(
       v-if='productDealOfTheDay'
       :product='productDealOfTheDay'
       class='index__promotion'
+    )
+
+    section(class='products-block')
+      h2(class='products-block__header') New Arrivals
+      ul(class='products-block__list')
+        li(
+          v-for='(product, index) in products'
+          :key='product.id'
+          class='products-block__item'
+        )
+          ProductCard(
+            :product='product'
+            class='products-block__product'
+          )
+
+    FeaturedProfile(
+      class='index__featured-profile'
     )
 
     section(class='products-block')
@@ -44,8 +68,9 @@ import { mapState, mapGetters } from 'vuex'
 import Hero from '~comp/Hero.vue'
 import heroImage from '~/assets/images/hero_index.jpg'
 import ProductCard from '~comp/ProductCard.vue'
+import CollectionBlock from '~comp/CollectionBlock.vue'
 import DealOfTheDay from '~comp/dealOfTheDay/Index.vue'
-
+import FeaturedProfile from '~comp/featuredProfile/Index.vue'
 
 
 
@@ -53,7 +78,9 @@ export default {
   components: {
     Hero,
     ProductCard,
-    DealOfTheDay
+    DealOfTheDay,
+    CollectionBlock,
+    FeaturedProfile
   },
   data () {
     return {
@@ -70,13 +97,20 @@ export default {
     }
   },
   computed: {
+    featuredCollection () {
+      console.log('collections: ', this.collections)
+      return Object.values(this.collections)[0]
+    },
+
+
     ...mapGetters({
       productDealOfTheDay: 'catalog/productDealOfTheDay'
     }),
 
 
     ...mapState({
-      products: state => state.catalog.products
+      products: state => state.catalog.products,
+      collections: state => state.catalog.collections
     })
   },
   methods: {}
@@ -89,8 +123,14 @@ export default {
 
 .index
   display: grid
+  grid-gap: $unit*10 0
   justify-items: center
+  +mq-m
+    grid-gap: $unit*20 0
 
+
+  &__featured-collection
+    width: 75%
 
 .products-block
   width: 75%
@@ -99,7 +139,7 @@ export default {
   grid-gap: $unit*5
 
   &__header
-    font-size: $fs1
+    font-size: $fs2
     text-align: center
     color: $black
 

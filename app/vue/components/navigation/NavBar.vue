@@ -13,9 +13,11 @@ div(
       class='nav-bar__hamburger'
     )
 
-    Search(
+    router-link(
+      :to='{ name: "search" }'
       class='nav-bar__search'
     )
+      IconSearch(class='nav-bar__search-icon')
 
     //- ShopLogo(
     //-   class='nav-bar__shop-logo'
@@ -34,21 +36,21 @@ div(
 
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import Hamburger from '~comp/Hamburger.vue'
-import Search from '~comp/Search.vue'
 import ShopLogo from '~comp/ShopLogo.vue'
 import Bag from '~comp/Bag.vue'
 import Account from '~comp/Account.vue'
+import IconSearch from '~/assets/svg/icon-search.svg'
 
 
 export default {
   components: {
     Hamburger,
-    Search,
     ShopLogo,
     Bag,
-    Account
+    Account,
+    IconSearch
   },
   data () {
     return {
@@ -63,22 +65,14 @@ export default {
 
 
     ...mapState({
-      navMenuActive: state => state.app.navMenuActive,
       route: state => state.route,
-      routeId: state => state.route.params.id,
     })
   },
   methods: {
     handleHamburgerClick () {
       const { name } = this.route
       this.conditions.includes(name) ? this.$router.go(-1) : this.$router.push({ name: 'menu' })
-    },
-
-    ...mapMutations({
-      openNavMenu: 'app/OPEN_NAV_MENU',
-      closeNavMenu: 'app/CLOSE_NAV_MENU',
-      toggleNavMenu: 'app/TOGGLE_NAV_MENU'
-    })
+    }
   }
 }
 </script>
@@ -120,9 +114,18 @@ export default {
 
 
   &__search
+    width: $unit*5
+    height: $unit*5
+    display: flex
+    justify-content: center
+    align-items: center
     +mq-m
       grid-row: 6 / 7
       grid-column: 1 / 2
+
+    &-icon
+      width: $unit*3
+      height: $unit*3
 
   &__account
     +mq-m

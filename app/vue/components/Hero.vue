@@ -44,7 +44,7 @@ export default {
 
 <style lang='sass' scoped>
 .container-hero
-  display: contents
+  width: 100%
 
 .hero
   display: grid

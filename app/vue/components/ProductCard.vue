@@ -46,7 +46,6 @@ export default {
 
 <style lang='sass' scoped>
 .container-product
-  display: flex
 
 .product
   display: grid

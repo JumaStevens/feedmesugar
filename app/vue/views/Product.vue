@@ -1,5 +1,8 @@
 <template lang='pug'>
-main(class='container-product')
+main(
+  :key='this.$route.fullPath'
+  class='container-product'
+)
 
   div(
     v-if='product'

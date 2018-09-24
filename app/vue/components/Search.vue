@@ -5,7 +5,7 @@ form(
   class='search'
 )
   //- search icon
-  a(
+  router-link(
     @click='isFocus ? blur() : null'
     class='search__icon'
   )

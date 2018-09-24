@@ -7,6 +7,8 @@ import Collection from '~/views/Collection.vue'
 import Collections from '~/views/Collections.vue'
 import Cart from '~/views/Cart.vue'
 import Menu from '~/views/Menu.vue'
+import Search from '~/views/Search.vue'
+
 
 export const routes = [
   {
@@ -53,5 +55,10 @@ export const routes = [
     path: '/menu',
     name: 'menu',
     component: Menu
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: Search
   }
 ]

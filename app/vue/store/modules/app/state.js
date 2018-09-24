@@ -1,3 +1,1 @@
-export default {
-  navMenuActive: false
-}
+export default {}
