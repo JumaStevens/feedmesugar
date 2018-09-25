@@ -89,16 +89,16 @@ export default {
 
   &__form
     display: grid
-    grid-template-rows: $unit*4
+    grid-template-rows: $unit*5
     grid-template-columns: 1fr min-content
     grid-gap: $unit*3
-    background: $grey
+    background: rgba(232, 234, 237, 1)
     border-radius: $unit*3
     overflow: hidden
 
   &__icon
-    width: $unit*5
-    height: $unit*5
+    width: $unit*3
+    height: $unit*3
     grid-row: 1 / 2
     grid-column: 1 / 2
     align-self: center
@@ -130,7 +130,6 @@ export default {
   &__submit
     grid-row: 1 / 2
     grid-column: 2 / 3
-    background: $black
     color: $white
     padding: 0 $unit*3
     cursor: pointer

@@ -44,8 +44,11 @@ main(class='container-index')
             class='products-block__product'
           )
 
-    FeaturedProfile(
-      class='index__featured-profile'
+    //- FeaturedProfile(
+    //-   class='index__featured-profile'
+    //- )
+    AccountPromotion(
+      class='index__acount-promotion'
     )
 
     section(class='products-block')
@@ -71,6 +74,7 @@ import ProductCard from '~comp/ProductCard.vue'
 import CollectionBlock from '~comp/CollectionBlock.vue'
 import DealOfTheDay from '~comp/dealOfTheDay/Index.vue'
 import FeaturedProfile from '~comp/featuredProfile/Index.vue'
+import AccountPromotion from '~comp/accountPromotion/Index.vue'
 
 
 
@@ -80,7 +84,8 @@ export default {
     ProductCard,
     DealOfTheDay,
     CollectionBlock,
-    FeaturedProfile
+    FeaturedProfile,
+    AccountPromotion
   },
   data () {
     return {

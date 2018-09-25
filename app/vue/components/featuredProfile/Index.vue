@@ -25,6 +25,7 @@ div(class='container-featured-profile')
 
         Photo(
           v-for='(image, index) in userPost.images'
+          :key='image.src + index'
           :image='image'
           class='featured-profile__post-image'
         )

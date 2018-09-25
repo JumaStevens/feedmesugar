@@ -214,7 +214,7 @@ export default {
 
     &-button
       border-radius: 50%
-      border: 1px solid $grey
+      // border: 1px solid $grey
       user-select: none
 
 </style>

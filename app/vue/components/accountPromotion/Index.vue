@@ -2,15 +2,19 @@
 div(class='container-account-promotion')
 
   div(class='account-promotion')
+    AuthForm(class='account-promotion__auth-form')
 
 </template>
 
 
 <script>
+import AuthForm from '~comp/AuthForm.vue'
 
 
 export default {
-  components: {},
+  components: {
+    AuthForm
+  },
   props: {},
   data () {
     return {}

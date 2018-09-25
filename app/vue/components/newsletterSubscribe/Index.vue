@@ -11,7 +11,7 @@ div(class='container-newsletter-subscribe')
     )
       input(
         type='email'
-        placeholder='You email'
+        placeholder='Your email'
         class='newsletter-subscribe__form-input'
       )
       input(
