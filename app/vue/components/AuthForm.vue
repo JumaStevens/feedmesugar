@@ -2,7 +2,7 @@
 div(class='container-auth-form')
 
   form(
-    @submit.prevent=''
+    @submit.prevent='validateForm'
     class='auth-form'
   )
 
@@ -22,14 +22,18 @@ div(class='container-auth-form')
 
 
     //- sign in card
-    div(
-      class='auth-form__wrapper'
-    )
+    div(class='auth-form__wrapper')
+
       //- email
       div(class='auth-form__email')
-        IconEmail(class='auth-form__svg')
+        IconEmail(
+          :class='{ invalid: errors.has("email") }'
+          class='auth-form__svg'
+        )
         input(
           v-model='email'
+          v-validate='"required|email"'
+          name='email'
           placeholder='Email'
           class='auth-form__input'
         )
@@ -39,16 +43,21 @@ div(class='container-auth-form')
         :class='{ visible: activeView === "sign in" || activeView === "sign up"  }'
         class='auth-form__password'
       )
-        IconPassword(class='auth-form__svg')
+        IconPassword(
+          :class='{ invalid: errors.has("password") }'
+          class='auth-form__svg'
+        )
         input(
           v-model='password'
+          v-validate='activeView === "reset password" ? "" : "required|min:6"'
+          name='password'
           placeholder='Password'
           class='auth-form__input'
         )
 
       //- recaptcha
       div(
-        :class='{ visible: activeView === "password reset" }'
+        :class='{ visible: activeView === "reset password" }'
         class='auth-form__recaptcha'
       )
         a(
@@ -64,30 +73,15 @@ div(class='container-auth-form')
 
       //- forgot password
       a(
-        @click='setActiveView("password reset")'
+        @click='setActiveView("reset password")'
         :class='{ visible: activeView === "sign in" }'
         class='auth-form__password-reset'
       ) Forgot password?
 
-      //- submit(s)
+      //- submit
       input(
-        @click='signIn'
-        :class='{ visible: activeView === "sign in" }'
-        value='Sign In'
-        type='submit'
-        class='auth-form__submit'
-      )
-      input(
-        @click='signUp'
-        :class='{ visible: activeView === "sign up" }'
-        value='Sign Up'
-        type='submit'
-        class='auth-form__submit'
-      )
-      input(
-        @click='passwordReset'
-        :class='{ visible: activeView === "password reset" }'
-        value='Reset Password'
+        :class='{ valid: (email && recaptcha && activeView === "reset password" && !errors.has("email")) || (email && password && !errors.has("email") && !errors.has("password")) }'
+        value='enter'
         type='submit'
         class='auth-form__submit'
       )
@@ -97,7 +91,7 @@ div(class='container-auth-form')
         :class='{ visible: activeView === "sign in" || activeView === "sign up" }'
         class='auth-form__providers'
       )
-        p(class='auth-form__copy') {{ activeView }} with
+        p(class='auth-form__copy') or
         a(
           @click='signInWithFacebook'
           class='auth-form__icon'
@@ -113,10 +107,29 @@ div(class='container-auth-form')
           class='auth-form__icon'
         )
           IconTwitter(class='auth-form__svg')
+
+
+    //- send status
+    div(
+      :class='{ visible: sending }'
+      class='auth-form__send-status'
+    )
+
+
+    //- error status
+    div(
+      :class='{ visible: error }'
+      class='auth-form__error-status'
+    )
+      h3(class='auth-form__error-status-title') Error Message
+      p(class='auth-form__error-status-copy') {{ errorMessage }}
+
+
 </template>
 
 
 <script>
+import { mapActions } from 'vuex'
 import IconEmail from '~/assets/svg/icon-email.svg'
 import IconPassword from '~/assets/svg/icon-password.svg'
 import IconGoogle from '~/assets/svg/icon-google.svg'
@@ -142,7 +155,10 @@ export default {
       email: '',
       password: '',
       activeView: 'sign up',
-      recaptcha: false
+      recaptcha: false,
+      sending: false,
+      error: false,
+      errorMessage: ''
     }
   },
   computed: {},
@@ -157,24 +173,84 @@ export default {
     },
 
 
-    signUp () {
-      console.log('signUp: ')
+    async validateForm () {
+      try {
+        const email = this.email
+        const password = this.password
+        const isValid = await this.$validator.validateAll()
+        console.log('isValid: ', isValid)
+        if (!isValid) return
+        if (this.activeView === 'sign in') this.signIn({ email, password })
+        if (this.activeView === 'sign up') this.signUp({ email, password })
+        if (this.activeView === 'reset password' && this.recaptcha) this.passwordReset({ email })
+      }
+      catch (e) { console.error(e) }
     },
 
 
-    signIn () {
-      console.log('signIn')
+    async signUp ({ email, password }) {
+      try {
+        console.log('signUp')
+        this.sending = true
+        const res = await this.createUserWithEmailAndPassword({ email, password })
+        this.sending = false
+        console.log('res: ', res)
+      }
+      catch (e) {
+        console.error(e)
+        const errorMessage = 'Sign up failed'
+        this.handleError({ errorMessage })
+      }
     },
 
 
-    signInWithFacebook () {},
-    signInWithGoogle () {},
-    signInWithTwitter () {},
+    async signIn ({ email, password }) {
+      try {
+        console.log('signIn')
+        this.sending = true
+        await this.signInWithEmailAndPassword({ email, password })
+        this.sending = false
+      }
+      catch (e) {
+        console.error(e)
+        this.handleError({ errorMessage: e })
+      }
+    },
 
 
-    passwordReset () {
-      console.log('passwordReset')
-    }
+    async passwordReset ({ email }) {
+      try {
+        console.log('passwordReset')
+        this.sending = true
+        await this.sendPasswordResetEmail({ email })
+        this.sending = false
+      }
+      catch (e) {
+        console.error(e)
+        this.handleError({ errorMessage: e })
+      }
+    },
+
+
+    handleError ({ errorMessage }) {
+      console.log('handleError: ', errorMessage)
+      this.sending = false
+      this.error = true
+      this.errorMessage = errorMessage
+      setTimeout(() => {
+        this.error = false
+        this.errorMessage = ''
+      }, 5000)
+    },
+
+    ...mapActions({
+      signInWithEmailAndPassword: 'auth/signInWithEmailAndPassword',
+      createUserWithEmailAndPassword: 'auth/createUserWithEmailAndPassword',
+      sendPasswordResetEmail: 'auth/sendPasswordResetEmail',
+      signInWithFacebook: 'auth/signInWithFacebook',
+      signInWithGoogle: 'auth/signInWithGoogle',
+      signInWithTwitter: 'auth/signInWithTwitter'
+    })
   }
 }
 </script>
@@ -190,9 +266,13 @@ export default {
 .auth-form
   height: 100%
   display: grid
+  grid-template-rows: repeat(2, auto)
+  grid-template-columns: auto
   grid-gap: $unit*3 0
 
-  &__header
+  &__header,
+    grid-row: 1 / 2
+    grid-column: 1 / 2
     display: grid
     grid-template-columns: repeat(2, min-content)
     grid-gap: 0 $unit*2
@@ -209,6 +289,8 @@ export default {
       color: $black
 
   &__wrapper
+    grid-row: 2 / 3
+    grid-column: 1 / 2
     display: grid
     grid-template-rows: repeat(5, auto)
     grid-template-columns: 1fr
@@ -226,6 +308,8 @@ export default {
     width: $unit*2
     height: $unit*2
 
+    &.invalid
+      fill: $error
 
   &__email,
   &__password,
@@ -241,7 +325,6 @@ export default {
   &__email
     grid-row: 1 / 2
     visibility: visible
-
 
   &__recaptcha
     grid-template-rows: $unit*3
@@ -262,7 +345,6 @@ export default {
     &-copy
       font-size: 12px
       vertical-align: middle
-      color: $black
 
   &__input
     height: $unit*3
@@ -278,16 +360,21 @@ export default {
     justify-content: center
     align-items: center
     border-radius: $unit*3
-    background: $black
+    background: $grey
     color: $white
     font-size: 12px
     text-transform: uppercase
-    visibility: hidden
+
+    &.valid
+      background: $black
+      cursor: pointer
+
 
   &__password-reset
     font-size: 12px
     justify-self: end
     visibility: hidden
+    color: $blue
 
   &__providers
     display: grid
@@ -298,14 +385,86 @@ export default {
     visibility: hidden
 
   &__copy
+    position: relative
     grid-row: 1 / 2
     grid-column: 1 / 4
     font-size: 12px
     text-align: center
     color: $grey
 
+    &::before,
+    &::after
+      content: ''
+      position: absolute
+      top: 50%
+      left: 50%
+      width: 50%
+      height: 1px
+      background: $grey
+      transform: translate(-50%, -50%)
+
+    &::after
+      content: 'or'
+      height: 100%
+      width: 25%
+      background: $white
+
+
+  &__send-status,
+  &__error-status
+    position: relative
+    z-index: 3
+    width: 100%
+    height: 100%
+    grid-row: 1 / 3
+    grid-column: 1 / 2
+    background: $white
+    visibility: hidden
+
+  &__send-status
+
+    &::before,
+    &::after
+      content: ''
+      position: absolute
+      top: 50%
+      left: 50%
+      width: $unit*5
+      height: $unit*5
+      border-radius: 50%
+      border: $unit/4 solid $blue
+      animation: sending 750ms linear infinite alternate
+
+    &::after
+      width: $unit*6
+      height: $unit*4
+      border-radius: unset
+      border: unset
+      background: $white
+
+
+  &__error-status
+    display: grid
+    grid-template-rows: min-content 1fr
+    grid-gap: $unit*3 0
+    padding: $unit*2
+
+    &-title
+      text-align: center
+      text-transform: uppercase
+
+    &-copy
+      color: $dark
+      font-size: 12px
+
 
 .visible
   visibility: visible
 
+
+@keyframes sending
+  0%
+    transform: translate(-50%, -50%) rotate(0deg)
+  100%
+    transform: translate(-50%, -50%) rotate(360deg)
 </style>

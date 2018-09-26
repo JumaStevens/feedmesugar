@@ -15,15 +15,21 @@ export default {
   },
 
 
-  async createUserWithEmailAndPassword ({}, payload) {
-    try { await firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password) }
-    catch (e) { console.error(e) }
+  async createUserWithEmailAndPassword ({}, { email, password }) {
+    try { await firebase.auth().createUserWithEmailAndPassword(email, password) }
+    catch (e) {
+      console.error(e)
+      throw e
+    }
   },
 
 
-  async signInWithEmailAndPassword ({}, payload) {
-    try { await firebase.auth().signInWithEmailAndPassword(payload.email, payload.password) }
-    catch (e) { console.error(e) }
+  async signInWithEmailAndPassword ({}, { email, password }) {
+    try { await firebase.auth().signInWithEmailAndPassword(email, password) }
+    catch (e) {
+      console.error(e)
+      return e
+    }
   },
 
 
@@ -62,9 +68,12 @@ export default {
   },
 
 
-  async sendPasswordResetEmail ({}, payload) {
-    try { await currentUser().sendPasswordResetEmail(currentUser().email) }
-    catch (e) { console.error(e) }
+  async sendPasswordResetEmail ({}, { email }) {
+    try { console.log('/??/') } //await currentUser().sendPasswordResetEmail(email) }
+    catch (e) {
+      console.error(e)
+      return e
+    }
   },
 
 
@@ -80,5 +89,41 @@ export default {
   async reauthenticateWithCredential ({}, payload) {
     try { await currentUser().reauthenticateWithCredential(payload.credential) }
     catch (e) { console.error(e) }
+  },
+
+
+  async signInWithFacebook ({}, {}) {
+    try {
+      const provider = new firebase.auth.FacebookAuthProvider()
+      const result = await firebase.auth().signInWithPopup(provider)
+      console.log('result: ', result)
+    }
+    catch (e) {
+      console.error(e)
+    }
+  },
+
+
+  async signInWithGoogle ({}, {}) {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider()
+      const result = await firebase.auth().signInWithPopup(provider)
+      console.log('result: ', result)
+    }
+    catch (e) {
+      console.error(e)
+    }
+  },
+
+
+  async signInWithTwitter ({}, {}) {
+    try {
+      // const provider = new firebase.auth.GoogleAuthProvider()
+      // const result = await firebase.auth().signInWithPopup(provider)
+      // console.log('result: ', result)
+    }
+    catch (e) {
+      console.error(e)
+    }
   }
 }
