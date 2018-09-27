@@ -2,29 +2,41 @@
 div(class='container-form-address')
 
   form(
+    @submit.prevent='validateForm'
     class='form-address'
   )
     label(class='label') Address
     input(
+      v-model='address'
       class='input'
     )
     label(class='label') City
     input(
+      v-model='city'
       class='input'
     )
     label(class='label') State
     input(
+      v-model='state'
       class='input'
     )
     label(class='label') Zip
     input(
+      v-model='zipcode'
+      class='input'
+    )
+    label(class='label') Country
+    input(
+      v-model='country'
       class='input'
     )
     div(class='buttons')
       a(class='cancel') Cancel
-      button(
+      input(
+        type='submit'
+        value='save'
         class='submit'
-      ) Save
+      )
 
 </template>
 
@@ -36,7 +48,13 @@ export default {
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      address: '',
+      city: '',
+      state: '',
+      zipcode: '',
+      country: ''
+    }
   },
   computed: {},
   methods: {}

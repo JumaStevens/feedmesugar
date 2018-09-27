@@ -7,6 +7,16 @@ div(class='container-auth-settings')
     ul(class='auth-settings__list')
       li(class='auth-settings__item')
         a(
+          @click='show.name = !show.name'
+          class='auth-settings__header'
+        )
+          h4(class='auth-settings__header-title') Name
+        FormName(
+          v-show='show.name'
+          class='auth-settings__form'
+        )
+      li(class='auth-settings__item')
+        a(
           @click='show.email = !show.email'
           class='auth-settings__header'
         )
@@ -61,6 +71,7 @@ import FormEmail from '~comp/account/FormEmail.vue'
 import FormAddress from '~comp/account/FormAddress.vue'
 import FormPassword from '~comp/account/FormPassword.vue'
 import FormPhoneNumber from '~comp/account/FormPhoneNumber.vue'
+import FormName from '~comp/account/FormName.vue'
 
 
 export default {
@@ -68,12 +79,14 @@ export default {
     FormEmail,
     FormAddress,
     FormPassword,
-    FormPhoneNumber
+    FormPhoneNumber,
+    FormName
   },
   props: {},
   data () {
     return {
       show: {
+        name: false,
         email: false,
         password: false,
         address: false,
