@@ -1,174 +1,62 @@
 <template lang='pug'>
-main.auth
+div(class='container-auth')
 
-  header(class='header')
-    h1(class='title') TRADAR
-    p(class='copy') Make better trading decisions.
+  div(class='auth')
 
+    AuthForm(class='auth__form')
 
-  form(
-    @submit.prevent=''
-  ).auth__form
-
-    //- email
-    input(
-      v-model='form.email'
-      type='email'
-      name='email'
-      v-validate='"required|email"'
-      key='auth-email'
-      placeholder='Email'
-      required
-    ).auth__input
-
-    //- password
-    input(
-      v-model='form.password'
-      type='password'
-      placeholder='Password'
-      required
-    ).auth__input
-
-    div(class='auth__inner')
-
-      //- login
-      input(
-        class='auth__submit auth__signin'
-        type='submit'
-        value='Login'
-        @click='signIn()'
-      )
-
-      //- forgot password
-      input(
-        class='auth__submit auth__forgot'
-        type='submit'
-        value='Forgot password?'
-        @click=''
-      )
-
-
-
-    //- create user
-    input(
-      class='auth__submit auth__signup'
-      type='submit'
-      value='Signup'
-      @click='signUp()'
-    )
 </template>
 
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapState } from 'vuex'
+import AuthForm from '~comp/AuthForm.vue'
 
 
 export default {
-  data () {
-    return {
-      form: {
-        email: '',
-        password: ''
-      }
-    }
+  components: {
+    AuthForm
   },
-  methods: {
-    async signIn () {
-      try {
-        this.$validator.validateAll()
-        if (this.errors.any()) throw this.errors // $validator provided object
-        await this.signInWithEmailAndPassword({ email: this.form.email, password: this.form.password })
-        this.$router.replace({ name: 'index' })
-      }
-      catch (e) { console.error(e) }
-    },
-
-
-    async signUp () {
-      try {
-        this.$validator.validateAll()
-        if (this.errors.any()) throw this.errors // $validator provided object
-        await this.createUserWithEmailAndPassword({ email: this.form.email, password: this.form.password })
-        this.$router.replace({ name: 'index' })
-      }
-      catch (e) { console.error(e) }
-    },
-
-
-    ...mapActions({
-      signInWithEmailAndPassword: 'auth/signInWithEmailAndPassword',
-      createUserWithEmailAndPassword: 'auth/createUserWithEmailAndPassword'
+  props: {},
+  data () {
+    return {}
+  },
+  computed: {
+    ...mapState({
+      authUser: state => state.auth.authUser
     })
   },
-  beforeRouteEnter (to, from, next) {
-    // const authUser = this.$store.state.authUser
-    // authUser ? next({ name: 'index' }) : next()
-    next()
-  }
+  watch: {
+    authUser () {
+      this.authUser ? this.$router.replace({ name: 'account' }) : null
+    }
+  },
+  methods: {}
 }
 </script>
 
+
 <style lang='sass' scoped>
-.header
-  @extend %flex--column-center
-  width: 75%
-  max-width: 600px
-  align-items: unset
-  margin: $unit*5 0
-
-.title
-  font-size: $fs2
-  color: rgba(46, 54, 63, 1)
-  line-height: 1
-
-.copy
-  color: rgba(46, 54, 63, 1)
-  padding-left: .25rem
-  font-size: 12px
+.container-auth
+  display: flex
 
 .auth
+  position: relative
+  width: 100%
   display: grid
-  grid-template-rows: 1.5fr 3fr
-  justify-items: center
-  margin-top: $unit*2
-  background: $white
+  justify-content: center
+  align-content: center
 
-  &__form
-    @extend %flex--column
-    width: 75%
-    max-width: 600px
-    justify-content: center
+  &::before
+    content: ''
+    position: absolute
+    z-index: -1
+    bottom: 0
+    right: 0
+    width: 0
+    height: 0
+    border-right: calc(100vw - #{$unit * 6}) solid #f8f8f8
+    border-bottom: 100vh solid transparent
 
-  &__input
-    padding: .1rem 0
-    margin-bottom: $unit*6
-    border-bottom: 1px solid $dark
-    background: transparent
-
-    &:nth-child(2)
-      margin-bottom: $unit*4
-
-  &__inner
-    @extend %flex
-    justify-content: space-between
-
-  &__submit
-    width: min-content
-    background: transparent
-    color: rgba(46, 54, 63, 1)
-
-  &__signin
-
-  &__forgot
-    margin-left: auto
-
-  &__signup
-    width: unset
-    margin: $unit*6 0
-    padding: $unit*2
-    border-radius: $unit/2
-    background: rgba(46, 54, 63, 1)
-    box-shadow: 0px 8px 24px rgba(34, 34, 34, 0.4)
-    color: $white
 
 </style>

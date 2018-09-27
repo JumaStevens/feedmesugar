@@ -1,11 +1,13 @@
 <template lang='pug'>
-main.container
+div
   account
 </template>
 
 
 <script>
 import Account from '~comp/account/Index.vue'
+import firebase from '~/firebase'
+
 
 export default {
   components: {
@@ -13,6 +15,10 @@ export default {
   },
   data () {
     return {}
+  },
+  beforeRouteEnter (to, from, next) {
+    const authUser = firebase.auth().currentUser
+    authUser ? next() : next({ name: 'auth' })
   }
 }
 </script>
@@ -20,13 +26,7 @@ export default {
 
 <style lang='sass' scoped>
 .container
-  box-shadow: 0px 0px 0.5rem rgba(33, 33, 33, 0.2)
-  border-radius: 0.75%
-  overflow: hidden
-  background: $white
 
-  & h1
-    color: black
 
 
 </style>

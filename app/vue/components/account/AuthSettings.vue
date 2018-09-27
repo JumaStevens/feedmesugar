@@ -1,0 +1,113 @@
+<template lang='pug'>
+div(class='container-auth-settings')
+
+  section(class='auth-settings')
+    h3(class='auth-settings__title') Account
+
+    ul(class='auth-settings__list')
+      li(class='auth-settings__item')
+        a(
+          @click='show.email = !show.email'
+          class='auth-settings__header'
+        )
+          h4(class='auth-settings__header-title') Email Address
+        FormEmail(
+          v-show='show.email'
+          class='auth-settings__form'
+        )
+
+      li(class='auth-settings__item')
+        a(
+          @click='show.password = !show.password'
+          class='auth-settings__header'
+        )
+          h4(class='auth-settings__header-title') Update Password
+        FormPassword(
+          v-show='show.password'
+          class='auth-settings__form'
+        )
+
+      li(class='auth-settings__item')
+        a(
+          @click='show.address = !show.address'
+          class='auth-settings__header'
+        )
+          h4(class='auth-settings__header-title') Shipping Address
+        FormAddress(
+          v-show='show.address'
+          class='auth-settings__form'
+        )
+
+      li(class='auth-settings__item')
+        a(
+          @click='show.phone = !show.phone'
+          class='auth-settings__header'
+        )
+          h4(class='auth-settings__header-title') Phone Number
+        FormPhoneNumber(
+          v-show='show.phone'
+          class='auth-settings__form'
+        )
+
+
+
+
+
+</template>
+
+
+<script>
+import FormEmail from '~comp/account/FormEmail.vue'
+import FormAddress from '~comp/account/FormAddress.vue'
+import FormPassword from '~comp/account/FormPassword.vue'
+import FormPhoneNumber from '~comp/account/FormPhoneNumber.vue'
+
+
+export default {
+  components: {
+    FormEmail,
+    FormAddress,
+    FormPassword,
+    FormPhoneNumber
+  },
+  props: {},
+  data () {
+    return {
+      show: {
+        email: false,
+        password: false,
+        address: false,
+        phone: false
+      }
+    }
+  },
+  computed: {},
+  methods: {}
+}
+</script>
+
+
+<style lang='sass' scoped>
+.container-auth-settings
+
+.auth-settings
+
+  &__title
+    padding: $unit*3 0
+    font-size: $fs1
+
+  &__header
+    display: block
+    padding: $unit*3 $unit*2
+    user-select: none
+
+  &__list
+    width: 100%
+    max-width: 320px
+    display: grid
+    grid-gap: $unit*3 0
+
+  &__item
+    box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
+
+</style>

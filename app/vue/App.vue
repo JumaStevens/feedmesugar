@@ -19,12 +19,12 @@ main(
     )
 
   NewsletterSubscribe(
-    v-show='route.name !== "menu"'
+    v-show='!hideFooter.includes(route.name)'
     class='vue-app__newsletter-subscribe'
   )
 
   AppFooter(
-    v-show='route.name !== "menu"'
+    v-show='!hideFooter.includes(route.name)'
     class='vue-app__footer'
   )
 </template>
@@ -46,7 +46,12 @@ export default {
     Error404
   },
   data () {
-    return {}
+    return {
+      hideFooter: [
+        'menu',
+        'auth'
+      ]
+    }
   },
   computed: {
     error () {

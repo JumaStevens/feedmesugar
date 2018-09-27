@@ -70,7 +70,7 @@ export default {
     width: $unit
     height: $unit
     border-radius: 50%
-    background: rgba(18, 201, 18, 1)
+    background: $success
 
     &.empty
       visibility: hidden

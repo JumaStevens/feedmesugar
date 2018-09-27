@@ -7,7 +7,8 @@ div(
     class='account'
   )
 
-    a(
+    router-link(
+      :to='{ name: "account" }'
       class='account__link'
     )
       IconAccount(
