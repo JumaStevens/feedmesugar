@@ -9,16 +9,14 @@ div(class='container-products')
     )
 
     ul(class='products__list')
-      Dropdown(
-        :dropdown='dropdown'
-        @select='dropdownSelect'
-        class='products__dropdown'
-      )
-      span(class='product__grid-dummy')
-      span(class='product__grid-dummy')
-
+      ProductSortFilter
+      //- Dropdown(
+      //-   :dropdown='dropdown'
+      //-   @select='dropdownSelect'
+      //-   class='products__dropdown'
+      //- )
       li(
-        v-for='(product, index) in sortProducts'
+        v-for='(product, index) in sortByAndFilteredProducts'
         :key='product.id'
         class='products__item'
       )
@@ -37,13 +35,15 @@ import Dropdown from '~comp/Dropdown.vue'
 import heroImage from '~/assets/images/hero_products.jpg'
 import ProductCard from '~comp/ProductCard.vue'
 import moment from 'moment'
+import ProductSortFilter from '~comp/productSortFilter/Index.vue'
 
 
 export default {
   components: {
     Hero,
     Dropdown,
-    ProductCard
+    ProductCard,
+    ProductSortFilter
   },
   props: {},
   data () {
@@ -80,7 +80,8 @@ export default {
 
 
     ...mapState({
-      products: state => state.catalog.products
+      products: state => state.catalog.products,
+      sortByAndFilteredProducts: state => state.catalog.sortByAndFilteredProducts
     })
   },
   methods: {
@@ -114,9 +115,13 @@ export default {
   &__hero
 
   &__list
+    width: 75%
+    max-width: 1080px
     display: grid
     grid-template-columns: repeat(1, 1fr)
+    grid-auto-rows: 1fr
     grid-gap: $unit*2
+    margin: 0 auto
     +mq-xs
       grid-template-columns: repeat(2, 1fr)
     +mq-s

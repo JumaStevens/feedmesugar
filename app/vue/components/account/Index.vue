@@ -13,6 +13,8 @@ div(class='container-account')
 
     //- Points(class='account__points')
 
+    //-  Reviews
+
     a(
       @click='logout'
       class='account__logout'

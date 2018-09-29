@@ -1,5 +1,6 @@
 export default {
   collections: {},
   products: {},
-  variants: {}
+  variants: {},
+  sortByAndFilteredProducts: []
 }

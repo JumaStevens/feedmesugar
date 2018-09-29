@@ -10,5 +10,15 @@ export default {
   SET_PRODUCTS (state, { product }) {
     console.log('SET_PRODUCTS: ', product)
     Vue.set(state.products, product.id, product)
+  },
+
+
+  SET_SORTBY_AND_FILTERED_PRODUCTS (state, { products }) {
+    state.sortByAndFilteredProducts = products
+  },
+
+
+  DELETE_SORTBY_AND_FILTERED_PRODUCTS (state) {
+    state.sortByAndFilteredProducts = []
   }
 }
