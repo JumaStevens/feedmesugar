@@ -3,10 +3,9 @@ div(class='container-discount')
 
   div(class='discount')
 
-    header(class='discount__header')
-      IconDiscount(class='discount__header-icon')
-      h3(class='discount__header-title') Discount/Promo Code
-      p(class='discount__header-copy') Don't have any yet? Check out our discount programs
+    IconDiscount(class='discount__icon')
+    h3(class='discount__title') Discount/Promo Code
+    p(class='discount__copy') Don't have any yet? Check out our discount programs.
 
     form(
       @submit.prevent='applyDiscount'
@@ -69,41 +68,48 @@ export default {
 
 .discount
   display: grid
-  grid-gap: $unit*2 0
-  +mq-m
-    grid-auto-flow: column
-    grid-gap: 0 $unit*2
+  grid-template-rows: repeat(3, min-content)
+  grid-template-columns: auto
+  grid-gap: $unit*2 $unit*2
+  +mq-xs
+    grid-template-columns: repeat(2, min-content)
+  +mq-s
+    grid-template-rows: repeat(2, min-content)
+    grid-template-columns: min-content auto min-content
 
 
-  &__header
-    display: grid
-    grid-template-rows: repeat(2, auto)
-    grid-template-columns: min-content auto
-    grid-gap: 0 $unit*2
-
-    &-icon
+  &__icon
+    display: none
+    +mq-xs
+      display: unset
       width: $unit*3
       grid-row: 1 / -1
       grid-column: 1 / 2
 
-    &-title
-      grid-row: 1 / 2
+  &__title
+    grid-row: 1 / 2
+    grid-column: 1 / 2
+    font-weight: bold
+    +mq-xs
       grid-column: 2 / 3
-      font-weight: bold
 
-    &-copy
-      grid-row: 2 / 3
+
+  &__copy
+    max-width: 280px
+    grid-row: 2 / 3
+    grid-column: 1 / 2
+    color: $dark
+    +mq-xs
       grid-column: 2 / 3
-      color: $dark
 
 
   &__form
     justify-self: start
     height: min-content
     display: flex
-    margin-left: $unit*5
     border: 1px solid $grey
-    +mq-m
+    +mq-s
+      grid-row: 2 / 3
       justify-self: end
 
     &-input

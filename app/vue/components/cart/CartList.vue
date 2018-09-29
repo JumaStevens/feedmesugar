@@ -57,6 +57,9 @@ export default {
 .cart-list
   display: grid
   grid-gap: $unit*3 0
+  +mq-l
+    grid-gap: $unit*4
+    grid-template-columns: repeat(2, 1fr)
 
   &__empty
     display: grid
@@ -70,5 +73,6 @@ export default {
 
     &-copy
       text-align: center
+
 
 </style>

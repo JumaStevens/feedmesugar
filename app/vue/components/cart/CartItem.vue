@@ -3,12 +3,19 @@ div(class='container-cart-item')
 
   li(class='cart-item')
 
-    Photo(
-      :image='image'
-      class='cart-item__image'
+    router-link(
+      :to='{ name: "product", params: { id: products[item.id] ? products[item.id].id : "" } }'
+      class='cart-item__image-wrapper'
     )
+      Photo(
+        :image='image'
+        class='cart-item__image'
+      )
 
-    h3(class='cart-item__title') {{ item.title }}
+    router-link(
+      :to='{ name: "product", params: { id: products[item.id] ? products[item.id].id : "" } }'
+      class='cart-item__title'
+    ) {{ item.title }}
 
     p(class='cart-item__price') ${{ price }}
 
@@ -25,12 +32,6 @@ div(class='container-cart-item')
     )
       IconSize(class='cart-item__size-icon')
       | {{ size }}
-
-    a(
-      @click='removeLineItems({ lineItems: [ item.id ] })'
-      class='cart-item__remove'
-    )
-      IconCancel(class='cart-item__remove-icon')
 
     div(class='cart-item__quantity')
       a(
@@ -50,20 +51,18 @@ div(class='container-cart-item')
 
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import _ from 'lodash'
 import Photo from '~comp/Photo.vue'
 import IconColor from '~/assets/svg/icon-color.svg'
 import IconSize from '~/assets/svg/icon-size.svg'
-import IconCancel from '~/assets/svg/icon-cancel.svg'
 
 
 export default {
   components: {
     Photo,
     IconColor,
-    IconSize,
-    IconCancel
+    IconSize
   },
   props: {
     item: {
@@ -78,6 +77,7 @@ export default {
   },
   computed: {
     variant () {
+      this.products
       return this.item.variant
     },
 
@@ -101,11 +101,16 @@ export default {
 
     price () {
       return Math.round(this.variant.price * this.quantity * 100) / 100
-    }
+    },
+
+
+    ...mapGetters({
+      products: 'checkout/lineItemsProducts'
+    })
   },
   watch: {
     quantity (value) {
-      if (value < 1) this.quantity = 1
+      if (value < 0) this.quantity = 0
       this.updateLineItemsDebounce()
     }
   },
@@ -117,8 +122,7 @@ export default {
 
 
     ...mapActions({
-      updateLineItems: 'checkout/updateLineItems',
-      removeLineItems: 'checkout/removeLineItems'
+      updateLineItems: 'checkout/updateLineItems'
     })
   }
 }
@@ -130,35 +134,51 @@ export default {
 
 .cart-item
   display: grid
-  grid-template-rows: repeat(3, auto) 1fr
-  grid-template-columns: repeat(3, auto) 1fr auto
+  grid-template-rows: repeat(5, min-content)
+  grid-template-columns: repeat(2, min-content) 1fr
   grid-gap: $unit $unit*2
-  padding: $unit*2
+  padding: $unit
   box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
   background: $white
+  +mq-xs
+    grid-template-rows: repeat(3, auto) 1fr
+    grid-template-columns: auto auto 1fr
 
-  &__image
-    grid-row: 1 / -1
-    grid-column: 1 / 2
-    width: $unit*18
+
+  &__image-wrapper
+    grid-row: 1 / 2
+    grid-column: 1 / 4
+    +mq-xs
+      grid-row: 1 / -1
+      grid-column: 1 / 2
+      width: $unit*16
 
   &__title
-    grid-row: 1 / 2
-    grid-column: 2 / 5
+    grid-row: 2 / 3
+    grid-column: 1 / 4
+    margin-top: $unit*2
     white-space: nowrap
     overflow: hidden
     text-overflow: ellipsis
-    font-weight: bold
+    // font-weight: bold
+    +mq-xs
+      grid-row: 1 / 2
+      grid-column: 2 / 4
+      margin-top: unset
 
   &__price
-    grid-row: 2 / 3
-    grid-column: 2 / 5
+    grid-row: 3 / 4
+    grid-column: 1 / 4
+    +mq-xs
+      grid-row: 2 / 3
+      grid-column: 2 / 4
 
   &__color
-    grid-row: 3 / 4
-    grid-column: 2 / 3
+    grid-row: 4 / 5
     text-transform: capitalize
     display: flex
+    +mq-xs
+      grid-row: 3 / 4
 
     &-icon
       width: $unit*2
@@ -166,10 +186,11 @@ export default {
       margin-right: $unit
 
   &__size
-    grid-row: 3 / 4
-    grid-column: 3 / 4
+    grid-row: 4 / 5
     text-transform: capitalize
     display: flex
+    +mq-xs
+      grid-row:  3 / 4
 
     &-icon
       width: $unit*2
@@ -177,32 +198,15 @@ export default {
       margin-right: $unit
 
   &__quantity
-    grid-row: 4 / 5
-    grid-column: 2 / 5
-    align-self: end
-
-  &__remove
-    width: $unit*5
-    height: $unit*5
-    grid-row: 1 / -1
-    grid-column: 5 / 6
-    display: flex
-    justify-content: center
-    align-items: center
-
-    &-icon
-      width: $unit*2
-
-  &__price,
-  &__color,
-  &__size,
-  &__quantity
-    color: $dark
-
-  &__quantity
     width: min-content
+    grid-row: 5 / 6
+    grid-column: 1 / 4
     display: grid
     grid-auto-flow: column
+    +mq-xs
+      grid-row: 4 / 5
+      grid-column: 2 / 4
+      align-self: end
 
     &-button,
     &-count
@@ -216,5 +220,11 @@ export default {
       border-radius: 50%
       // border: 1px solid $grey
       user-select: none
+
+  &__price,
+  &__color,
+  &__size,
+  &__quantity
+    color: $dark
 
 </style>

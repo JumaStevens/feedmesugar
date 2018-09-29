@@ -116,7 +116,7 @@ export default {
 
   &__list
     width: 75%
-    max-width: 1080px
+    max-width: 1024px
     display: grid
     grid-template-columns: repeat(1, 1fr)
     grid-auto-rows: 1fr

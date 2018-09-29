@@ -97,7 +97,7 @@ export default {
       width: $unit*20
       height: $unit*5
       align-self: flex-end
-      border-radius: $unit*3
+      // border-radius: $unit*3
       background: $black
       color: $white
 

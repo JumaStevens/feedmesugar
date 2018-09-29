@@ -42,6 +42,8 @@ export default {
 
   &__title
     font-size: $fs1
+    +mq-m
+      font-size: $fs2
 
   &__copy
 

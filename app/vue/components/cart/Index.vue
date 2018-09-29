@@ -18,6 +18,11 @@ div(class='container-cart')
 
     DiscountEntry(class='cart__discount-entry')
 
+    Estimation(
+      :checkout='checkout'
+      class='cart__estimation'
+    )
+
     Submit(
       :checkout='checkout'
       class='cart__submit'
@@ -31,6 +36,7 @@ import _ from 'lodash'
 import Header from '~comp/cart/Header.vue'
 import CartList from '~comp/cart/CartList.vue'
 import DiscountEntry from '~comp/cart/DiscountEntry.vue'
+import Estimation from '~comp/cart/Estimation.vue'
 import Submit from '~comp/cart/Submit.vue'
 
 
@@ -39,6 +45,7 @@ export default {
     CartHeader: Header,
     CartList,
     DiscountEntry,
+    Estimation,
     Submit
   },
   props: {},
@@ -69,7 +76,7 @@ export default {
   max-width: 1024px
   margin: $unit*10 auto 0 auto
   display: grid
-  grid-template-rows: repeat(4, auto)
+  grid-template-rows: repeat(5, auto)
   grid-gap: $unit*10 0
 
   &__header
@@ -81,7 +88,10 @@ export default {
   &__discount-entry
     grid-row: 3 / 4
 
-  &__submit
+  &__estimation
     grid-row: 4 / 5
+
+  &__submit
+    grid-row: 5 / 6
 
 </style>
