@@ -80,10 +80,10 @@ export default {
   grid-template-columns: auto
   grid-gap: $unit*2 $unit*2
   +mq-xs
-    grid-template-columns: repeat(2, min-content)
+    grid-template-columns: min-content auto
   +mq-s
     grid-template-rows: repeat(2, min-content)
-    grid-template-columns: min-content auto min-content
+    grid-template-columns: min-content auto auto
 
 
   &__icon

@@ -56,7 +56,7 @@ export default {
 
 .submit
   display: grid
-  grid-gap: $unit 0
+  grid-gap: $unit*2 0
   // justify-items: end
 
   &__checkout
@@ -71,6 +71,7 @@ export default {
     &.valid
       background: $success
       cursor: pointer
+      box-shadow: 0 24px 32px rgba(33, 206, 156, 0.25)
 
   &__disclosure
     text-align: right

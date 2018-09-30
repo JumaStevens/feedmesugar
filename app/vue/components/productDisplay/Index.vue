@@ -105,6 +105,10 @@ export default {
   grid-gap: $unit*5 0
   +mq-s
     grid-template-rows: min-content auto
+    grid-template-columns: 1.5fr 1fr
+    grid-gap: 0 $unit*5
+  +mq-m
+    grid-template-rows: min-content auto
     grid-template-columns: 2fr 1fr
     grid-gap: 0 $unit*10
 

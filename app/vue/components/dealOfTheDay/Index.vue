@@ -148,8 +148,11 @@ export default {
     display: flex
     justify-content: center
     align-items: center
-    border-radius: $unit*3
-    border: 1px solid $dark
+    // border-radius: $unit*3
+    // border: 1px solid $dark
+    background: $success
+    color: $white
+    box-shadow: 0 24px 32px rgba(33, 206, 156, 0.15)
 
     +mq-s
       grid-row: 4 / 5

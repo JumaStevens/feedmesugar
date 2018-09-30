@@ -23,7 +23,7 @@ div(class='container-search')
       class='search__empty'
     )
       h3(
-        v-text='search ? "🧐" : "🕵️‍♀️"'
+        v-text='search ? "🧐" : "🔭"'
         class='search__empty-title'
       )
       p(
