@@ -174,10 +174,12 @@ export default {
     width: min-content
     display: grid
     grid-template-rows: repeat(2, auto)
+    grid-template-columns: min-content
     grid-gap: $unit*2 $unit
 
     &-label
       grid-row: 1 / 2
+      grid-column: 1 / 3
 
     &-button
       grid-row: 2 / 3
@@ -187,15 +189,25 @@ export default {
       justify-content: center
       align-items: center
       border-radius: 50%
-      border: 1px solid $grey
+      // border: 1px solid $grey
       user-select: none
       color: $grey
+      transition: transform 250ms ease
+
 
       &.active
         border: unset
-        box-shadow: 0 $unit $unit*3 rgba(34, 34, 34, 0.15)
+        // box-shadow: 0 $unit $unit*3 rgba(34, 34, 34, 0.15)
         color: $black
+        transform: scale(0.75)
 
+
+  &__color
+
+    &-button
+      width: $unit*4
+      height: $unit*4
+      
 
   &__quantity
     width: min-content

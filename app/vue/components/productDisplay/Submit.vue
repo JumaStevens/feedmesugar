@@ -8,8 +8,8 @@ div(class='container-submit')
 
     input(
       @click='addToCart'
-      :class='{ valid: variant.available }'
-      value='Add To Cart'
+      :class='{ valid: variant.available, sending, error }'
+      :value='buttonText'
       type='submit'
       class='submit__add-to-cart'
     )
@@ -34,20 +34,52 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      sending: false,
+      error: false,
+      buttonText: 'Add To Cart'
+    }
   },
   computed: {},
   methods: {
     async addToCart () {
-      if (!this.variant.available) return
+      if (!this.variant.available || this.sending || this.error) return
 
       try {
+        this.sending = true
+        this.buttonText = 'Adding...'
+
         const lineItems = [{ variantId: this.variant.id, quantity: this.quantity }]
         await this.addLineItems({ lineItems })
+        await this.handleSuccess()
       }
       catch (e) {
         console.log(e)
+        await this.handleError()
       }
+      finally {
+        this.sending = false
+        this.error = false
+        this.buttonText = this.variant.available ? 'Add To Cart' : 'Unavailable'
+      }
+    },
+
+
+    handleSuccess () {
+      return new Promise(resolve => {
+        this.buttonText = 'Success 👍'
+        setTimeout(() => resolve(), 1000)
+      })
+    },
+
+
+    handleError () {
+      return new Promise(resolve => {
+        this.sending = false
+        this.error = true
+        this.buttonText = 'Error, Try Again 😢'
+        setTimeout(() => resolve(), 3000)
+      })
     },
 
 
@@ -70,13 +102,21 @@ export default {
     display: flex
     justify-content: center
     align-items: center
-    border: 2px solid $grey
-    border-radius: $unit*6
-    color: $grey
+    background: $grey
+    color: $white
 
     &.valid
-      border-color: $success
-      color: $success
+      background: $success
       cursor: pointer
+      box-shadow: 0 24px 32px rgba(33, 206, 156, 0.25)
+
+    &.sending
+      cursor: default
+
+    &.error
+      background: $error
+      cursor: default
+      box-shadow: 0 24px 32px rgba(255, 0, 0, 0.25)
+
 
 </style>

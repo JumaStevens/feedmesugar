@@ -8,35 +8,37 @@ div(class='container-product-display')
       class='product-display__product'
     )
 
-    Detail(
-      :product='product'
-      :variant='activeVariant'
-      class='product-display__detail'
-    )
+    div(class='product-display__wrapper')
 
-    div(class='product-display__divider divider-0')
+      Detail(
+        :product='product'
+        :variant='activeVariant'
+        class='product-display__detail'
+      )
 
-    Controller(
-      :product='product'
-      :variants='variants'
-      @activeVariant='setActiveVariant'
-      @quantity='setQuantity'
-      class='product-display__controller'
-    )
+      div(class='product-display__divider divider-0')
 
-    div(class='product-display__divider divider-1')
+      Controller(
+        :product='product'
+        :variants='variants'
+        @activeVariant='setActiveVariant'
+        @quantity='setQuantity'
+        class='product-display__controller'
+      )
 
-    Submit(
-      :variant='activeVariant'
-      :quantity='quantity'
-      class='product-display__submit'
-    )
+      div(class='product-display__divider divider-1')
 
-    div(class='product-display__divider divider-2')
+      Submit(
+        :variant='activeVariant'
+        :quantity='quantity'
+        class='product-display__submit'
+      )
 
-    Share(
-      class='product-display__share'
-    )
+    //- div(class='product-display__divider divider-2')
+    //-
+    //- Share(
+    //-   class='product-display__share'
+    //- )
 </template>
 
 
@@ -100,31 +102,40 @@ export default {
 
 .product-display
   display: grid
-  grid-gap: $unit*5 0
+  grid-gap: $unit*10 0
   +mq-m
-    grid-template-rows: repeat(7, auto)
+    grid-template-rows: min-content auto
     grid-template-columns: 2fr 1fr
-    grid-gap: $unit*5 $unit*10
+    grid-gap: 0 $unit*10
 
   &__product
     +mq-m
       grid-row: 1 / -1
       grid-column: 1 / 2
 
+  &__wrapper
+    display: grid
+    grid-gap: $unit*5 0
+    +mq-m
+      grid-template-rows: repeat(5, auto)
+      grid-gap: $unit*5 0
+
+
+
   &__detail
     +mq-m
-      grid-row: 1 / 2
-      grid-column: 2 / 3
+      // grid-row: 1 / 2
+      // grid-column: 2 / 3
 
   &__controller
     +mq-m
-      grid-row: 3 / 4
-      grid-column: 2 / 3
+      // grid-row: 3 / 4
+      // grid-column: 2 / 3
 
   &__submit
     +mq-m
-      grid-row: 5 / 6
-      grid-column: 2 / 3
+      // grid-row: 5 / 6
+      // grid-column: 2 / 3
 
   &__share
     +mq-m
@@ -139,18 +150,18 @@ export default {
 
     &.divider-0
       +mq-m
-        grid-row: 2 / 3
-        grid-column: 2 / 3
+        // grid-row: 2 / 3
+        // grid-column: 2 / 3
 
     &.divider-1
       +mq-m
-        grid-row: 4 / 5
-        grid-column: 2 / 3
+        // grid-row: 4 / 5
+        // grid-column: 2 / 3
 
     &.divider-2
       +mq-m
-        grid-row: 6 / 7
-        grid-column: 2 / 3
+        // grid-row: 6 / 7
+        // grid-column: 2 / 3
 
 
 

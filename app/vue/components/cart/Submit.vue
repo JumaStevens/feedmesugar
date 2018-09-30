@@ -12,7 +12,7 @@ div(class='container-submit')
       class='submit__checkout'
     )
 
-    p(class='submit__disclosure') Taxes calculated at checkout.
+    p(class='submit__disclosure') Taxes calculated at checkout
 
 </template>
 

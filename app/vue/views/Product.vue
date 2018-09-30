@@ -66,7 +66,7 @@ export default {
   width: 75%
   max-width: 1024px
   display: grid
-  grid-gap: $unit*5 0
+  grid-gap: $unit*10 0
   margin: $unit*10 auto 0 auto
   +mq-m
     grid-gap: $unit*10

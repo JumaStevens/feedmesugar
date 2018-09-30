@@ -13,7 +13,7 @@ div(
       IconCart(class='bag__icon')
 
       div(
-        :class='{ empty: lineItemsQuantityTotal === 0 }'
+        :class='{ empty: lineItemsQuantityTotal === 0, pulse }'
         class='bag__quantity'
       )
 
@@ -31,13 +31,19 @@ export default {
   props: {},
   data () {
     return {
-
+      pulse: false
     }
   },
   computed: {
     ...mapGetters({
       lineItemsQuantityTotal: 'checkout/lineItemsQuantityTotal'
     })
+  },
+  watch: {
+    lineItemsQuantityTotal () {
+      this.pulse = true
+      setTimeout(() => this.pulse = false, 500)
+    }
   },
   methods: {}
 }
@@ -71,8 +77,13 @@ export default {
     height: $unit
     border-radius: 50%
     background: $success
+    transition: transform 500ms ease, opacity 350ms 250ms ease
 
     &.empty
       visibility: hidden
+
+    &.pulse
+      opacity: 0
+      transform: scale(2)
 
 </style>

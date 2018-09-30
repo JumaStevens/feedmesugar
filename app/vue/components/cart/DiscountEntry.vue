@@ -4,21 +4,26 @@ div(class='container-discount')
   div(class='discount')
 
     IconDiscount(class='discount__icon')
-    h3(class='discount__title') Discount/Promo Code
+    h3(class='discount__title') Discount Code
     p(class='discount__copy') Don't have any yet? Check out our discount programs.
 
     form(
       @submit.prevent='applyDiscount'
+      :class='{ invalid: errors.has("discount") || discountCode === "" }'
       class='discount__form'
     )
       input(
         v-model='discountCode'
-        placeholder='XXX-XXX-XXX'
+        v-validate='"required|alpha_num|length:9"'
+        name='discount'
+        maxlength='9'
+        placeholder='Discount'
         class='discount__form-input'
       )
       input(
+        :class='{ invalid: errors.has("discount") || discountCode === "" }'
         type='submit'
-        value='Enter'
+        value='Apply'
         class='discount__form-submit'
       )
 
@@ -43,14 +48,17 @@ export default {
   computed: {},
   methods: {
     async applyDiscount () {
-      const discountCode = this.discountCode
-      if (!discountCode) return
-
       try {
+        const discountCode = this.discountCode
+        const isValid = await this.$validator.validateAll()
+        if (!isValid) return
         await this.addDiscount({ discountCode })
       }
       catch (e) {
         console.error(e)
+      }
+      finally {
+        this.discountCode = ''
       }
     },
 
@@ -107,18 +115,28 @@ export default {
     justify-self: start
     height: min-content
     display: flex
-    border: 1px solid $grey
+    border: 1px solid $success
     +mq-s
       grid-row: 2 / 3
       justify-self: end
 
+    &.invalid
+      border: 1px solid $grey
+
     &-input
       height: $unit*5
-      padding: 0 $unit
+      padding-left: $unit
 
     &-submit
       height: $unit*5
-      padding: 0 $unit
+      padding: 0 $unit*2
       background: transparent
+      color: $success
+      cursor: pointer
+
+      &.invalid
+        color: $dark
+        cursor: default
+
 
 </style>
