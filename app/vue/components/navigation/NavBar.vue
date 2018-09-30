@@ -23,9 +23,13 @@ div(
     //-   class='nav-bar__shop-logo'
     //- )
 
-    Account(
+    router-link(
+      :to='{ name: "account" }'
       class='nav-bar__account'
     )
+      IconAccount(
+        class='nav-bar__account-icon'
+      )
 
     Bag(
       class='nav-bar__bag'
@@ -42,6 +46,7 @@ import ShopLogo from '~comp/ShopLogo.vue'
 import Bag from '~comp/Bag.vue'
 import Account from '~comp/Account.vue'
 import IconSearch from '~/assets/svg/icon-search.svg'
+import IconAccount from '~/assets/svg/icon-account.svg'
 
 
 export default {
@@ -50,7 +55,8 @@ export default {
     ShopLogo,
     Bag,
     Account,
-    IconSearch
+    IconSearch,
+    IconAccount
   },
   data () {
     return {
@@ -92,30 +98,33 @@ export default {
     height: 100vh
 
 .nav-bar
+  height: inherit
   display: grid
   grid-template-rows: auto
-  grid-template-columns: repeat(2, auto) 1fr repeat(2, auto)
-  grid-gap: 0 $unit*2
+  grid-template-columns: auto 1fr repeat(3, auto)
   padding: 0 $unit*2
   align-items: center
   +mq-m
-    height: inherit
+    grid-gap: 0 $unit*2
     grid-template-rows: 40px 40px 1fr 40px 1fr 40px 40px
     grid-template-columns: auto
     align-items: unset
     justify-items: center
-    padding: unset
+    padding: $unit*2 0
 
   &__hamburger
+    grid-column: 1 / 2
     +mq-m
       grid-row: 4 / 5
       grid-column: 1 / 2
       align-self: center
 
 
-  &__search
+  &__search,
+  &__account
     width: $unit*5
     height: $unit*5
+    grid-column: 3 / 4
     display: flex
     justify-content: center
     align-items: center
@@ -128,11 +137,16 @@ export default {
       height: $unit*3
 
   &__account
+    grid-column: 4 / 5
     +mq-m
       grid-row: 7 / 8
       grid-column: 1 / 2
 
+    &-icon
+      width: 18px
+
   &__bag
+    grid-column: 5 / 6
     +mq-m
       grid-row: 1 / 2
       grid-column: 1 / 2

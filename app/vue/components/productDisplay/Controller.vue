@@ -34,6 +34,7 @@ div(class='container-controller')
 
     //- quantity select
     div(class='controller__quantity')
+      p(class='controller__quantity-label') Qty
       a(
         class='controller__quantity-button'
         @click='quantity--'
@@ -194,7 +195,6 @@ export default {
       color: $grey
       transition: transform 250ms ease
 
-
       &.active
         border: unset
         // box-shadow: 0 $unit $unit*3 rgba(34, 34, 34, 0.15)
@@ -202,17 +202,17 @@ export default {
         transform: scale(0.75)
 
 
-  &__color
-
-    &-button
-      width: $unit*4
-      height: $unit*4
-      
-
   &__quantity
     width: min-content
     display: grid
-    grid-auto-flow: column
+    grid-template-rows: repeat(2, auto)
+    grid-template-columns: repeat(3, min-content)
+    grid-gap: $unit*2 $unit
+
+    &-label
+      grid-column: 1 / 4
+
+
 
     &-button,
     &-count

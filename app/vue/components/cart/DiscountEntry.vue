@@ -114,7 +114,9 @@ export default {
   &__form
     justify-self: start
     height: min-content
-    display: flex
+    display: grid
+    grid-template-rows: $unit*5
+    grid-template-columns: 1fr min-content
     border: 1px solid $success
     +mq-s
       grid-row: 2 / 3
@@ -124,11 +126,12 @@ export default {
       border: 1px solid $grey
 
     &-input
-      height: $unit*5
+      width: 100%
+      height: 100%
       padding-left: $unit
 
     &-submit
-      height: $unit*5
+      height: 100%
       padding: 0 $unit*2
       background: transparent
       color: $success

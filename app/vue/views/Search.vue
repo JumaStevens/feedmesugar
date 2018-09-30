@@ -7,13 +7,8 @@ div(class='container-search')
       IconSearch(class='search__icon')
       input(
         v-model='search'
-        placeholder='Search our inventory'
+        placeholder='Search inventory'
         class='search__input'
-      )
-      input(
-        type='Submit'
-        value='Search'
-        class='search__submit'
       )
       a(
         v-show='search.length'
@@ -22,16 +17,37 @@ div(class='container-search')
       )
         IconCancel(class='search__icon')
 
-    ul(class='search__list')
-      li(
-        v-for='(product, index) in searchResults.products'
-        :key='product.id + index'
-        class='search__item'
+    //- empty state
+    div(
+      v-show='searchResults.products.length === 0 || search.length === 0'
+      class='search__empty'
+    )
+      h3(
+        v-text='search ? "🧐" : "🕵️‍♀️"'
+        class='search__empty-title'
       )
-        ProductCard(
-          :product='product'
-          class='search__product'
+      p(
+        v-text='search ? "No results found." : "What are you looking for?"'
+        class='search__empty-copy'
+      )
+
+
+
+    div(
+      v-show='searchResults.products && search'
+      class='search__products'
+    )
+      //- h2(class='search__products-title') Products
+      ul(class='search__products-list')
+        li(
+          v-for='(product, index) in searchResults.products'
+          :key='product.id + index'
+          class='search__products-item'
         )
+          ProductCard(
+            :product='product'
+            class='search__products-product'
+          )
 
 </template>
 
@@ -59,6 +75,7 @@ export default {
     searchResults () {
       const search = new RegExp(this.search, 'i')
       const products = Object.values(this.products).filter(product => product.title.match(search))
+      console.log('products: ', products)
       return {
         products
       }
@@ -79,37 +96,41 @@ export default {
 <style lang='sass' scoped>
 .container-search
 
+
 .search
   width: 75%
-  margin: 0 auto
+  max-width: 1024px
   display: grid
-  grid-gap: $unit*10 0
+  grid-gap: $unit*5 0
+  margin: $unit*5 auto 0 auto
+  +mq-s
+    grid-gap: $unit*10 0
   +mq-m
-    grid-gap: $unit*20 0
+    margin-top: $unit*10
 
   &__form
     display: grid
     grid-template-rows: $unit*5
-    grid-template-columns: 1fr min-content
-    grid-gap: $unit*3
+    grid-template-columns: 1fr $unit*3
+    grid-gap: 0 $unit
+    align-items: center
     background: rgba(232, 234, 237, 1)
     border-radius: $unit*3
     overflow: hidden
+    +mq-xs
+      grid-template-columns: 1fr $unit*4
 
   &__icon
     width: $unit*3
     height: $unit*3
     grid-row: 1 / 2
     grid-column: 1 / 2
-    align-self: center
     margin-left: $unit*2
     pointer-events: none
 
   &__clear
     grid-row: 1 / 2
-    grid-column: 1 / 2
-    justify-self: end
-    align-self: center
+    grid-column: 2 / 3
 
     & .search__icon
       width: 12px
@@ -121,32 +142,44 @@ export default {
       fill: rgba(239, 239, 239, 1)
 
   &__input
+    width: 100%
     grid-row: 1 / 2
     grid-column: 1 / 2
-    padding-left: $unit*9
-    margin-right: $unit*4
+    padding-left: $unit*6
     background: transparent
 
-  &__submit
-    grid-row: 1 / 2
-    grid-column: 2 / 3
-    color: $white
-    padding: 0 $unit*3
-    cursor: pointer
-
-  &__list
+  &__empty
     display: grid
-    grid-template-columns: repeat(1, 1fr)
-    grid-gap: $unit*2
-    +mq-xs
-      grid-template-columns: repeat(2, 1fr)
-    +mq-s
-      grid-template-columns: repeat(3, 1fr)
-    +mq-m
-      grid-template-columns: repeat(4, 1fr)
+    grid-gap: 16px 0
+    justify-items: center
+    padding: 80px 0
 
-  &__item
+    &-title
+      font-size: $fs4
 
-  &__product
+    &-copy
+      text-align: center
+
+  &__products
+    display: grid
+    grid-gap: $unit*4 0
+
+    &-title
+      font-size: $fs1
+
+    &-list
+      display: grid
+      grid-template-columns: repeat(1, 1fr)
+      grid-gap: $unit*2
+      +mq-xs
+        grid-template-columns: repeat(2, 1fr)
+      +mq-s
+        grid-template-columns: repeat(3, 1fr)
+      +mq-m
+        grid-template-columns: repeat(4, 1fr)
+
+    &-item
+
+    &-product
 
 </style>

@@ -102,21 +102,21 @@ export default {
 
 .product-display
   display: grid
-  grid-gap: $unit*10 0
-  +mq-m
+  grid-gap: $unit*5 0
+  +mq-s
     grid-template-rows: min-content auto
     grid-template-columns: 2fr 1fr
     grid-gap: 0 $unit*10
 
   &__product
-    +mq-m
+    +mq-xs
       grid-row: 1 / -1
       grid-column: 1 / 2
 
   &__wrapper
     display: grid
     grid-gap: $unit*5 0
-    +mq-m
+    +mq-s
       grid-template-rows: repeat(5, auto)
       grid-gap: $unit*5 0
 
@@ -139,14 +139,12 @@ export default {
 
   &__share
     +mq-m
-      grid-row: 7 / 8
-      grid-column: 2 / 3
+      // grid-row: 7 / 8
+      // grid-column: 2 / 3
 
   &__divider
     height: 1px
     background: $grey
-    +mq-m
-      align-self: center
 
     &.divider-0
       +mq-m

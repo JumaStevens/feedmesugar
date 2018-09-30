@@ -9,12 +9,11 @@ div(class='container-products')
     )
 
     ul(class='products__list')
-      ProductSortFilter
-      //- Dropdown(
-      //-   :dropdown='dropdown'
-      //-   @select='dropdownSelect'
-      //-   class='products__dropdown'
-      //- )
+      ProductSortFilter(
+        v-if='products'
+        :products='products'
+        class='products__sort-filter'
+      )
       li(
         v-for='(product, index) in sortByAndFilteredProducts'
         :key='product.id'
@@ -31,17 +30,14 @@ div(class='container-products')
 <script>
 import { mapState } from 'vuex'
 import Hero from '~comp/Hero.vue'
-import Dropdown from '~comp/Dropdown.vue'
 import heroImage from '~/assets/images/hero_products.jpg'
 import ProductCard from '~comp/ProductCard.vue'
-import moment from 'moment'
 import ProductSortFilter from '~comp/productSortFilter/Index.vue'
 
 
 export default {
   components: {
     Hero,
-    Dropdown,
     ProductCard,
     ProductSortFilter
   },
@@ -65,42 +61,12 @@ export default {
     }
   },
   computed: {
-    sortProducts() {
-      const { selected } = this.dropdown
-      let products = Object.values(this.products)
-
-      if (selected.match(/most recent/i)) products = this.sortByRecent({ products })
-
-      if (selected.match(/price, low to high/i)) products = this.sortByPrice({ products })
-
-      if (selected.match(/price, high to low/i)) products = this.sortByPrice({ products }).reverse()
-
-      return products
-    },
-
-
     ...mapState({
       products: state => state.catalog.products,
       sortByAndFilteredProducts: state => state.catalog.sortByAndFilteredProducts
     })
   },
-  methods: {
-    dropdownSelect (option) {
-      this.dropdown.selected = option
-    },
-
-
-    sortByRecent ({ products }) {
-      return products.sort((a, b) => moment(a.publishedAt).unix() - moment(b.publishedAt).unix())
-    },
-
-
-    sortByPrice ({ products }) {
-      // default low to high
-      return products.sort((a, b) => a.variants[0].price - b.variants[0].price)
-    }
-
-  }
+  methods: {}
 }
 </script>
 
@@ -111,6 +77,8 @@ export default {
 .products
   display: grid
   grid-gap: $unit*10 0
+  +mq-m
+    grid-gap: $unit*20 0
 
   &__hero
 
@@ -129,7 +97,10 @@ export default {
     +mq-m
       grid-template-columns: repeat(4, 1fr)
 
-  &__dropdown
+  &__sort-filter
+    grid-column: 1 / -1
+    +mq(520)
+      grid-column: unset
 
   &__item
 

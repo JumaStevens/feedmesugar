@@ -3,7 +3,6 @@ div(class='container-collection')
 
 
   div(class='collection')
-
     Hero(
       :image='{ src: collection.image.src, aspectRatio: "0 0 1 1" }'
       :header='{ title: collection.title, copy: collection.description }'
@@ -11,8 +10,13 @@ div(class='container-collection')
     )
 
     ul(class='collection__list')
+      ProductSortFilter(
+        v-if='products'
+        :products='products'
+        class='collection__sort-filter'
+      )
       li(
-        v-for='(product, index) in products'
+        v-for='(product, index) in sortByAndFilteredProducts'
         :key='product.id + index'
         class='collection__item'
       )
@@ -27,12 +31,14 @@ div(class='container-collection')
 import { mapState } from 'vuex'
 import Hero from '~comp/Hero.vue'
 import ProductCard from '~comp/ProductCard.vue'
+import ProductSortFilter from '~comp/productSortFilter/Index.vue'
 
 
 export default {
   components: {
     Hero,
-    ProductCard
+    ProductCard,
+    ProductSortFilter
   },
   props: {},
   data () {
@@ -53,13 +59,16 @@ export default {
 
 
     products () {
-      return this.collection.products
+      const products = {}
+      this.collection.products.forEach(product => products[product.id] = product)
+      return products
     },
 
 
     ...mapState({
       collectionId: state => state.route.params.id,
-      collections: state => state.catalog.collections
+      collections: state => state.catalog.collections,
+      sortByAndFilteredProducts: state => state.catalog.sortByAndFilteredProducts,
     })
   },
   methods: {}
@@ -71,16 +80,30 @@ export default {
 .container-collection
 
 .collection
+  display: grid
+  grid-gap: $unit*10 0
+  +mq-m
+    grid-gap: $unit*20 0
 
   &__list
+    width: 75%
+    max-width: 1024px
     display: grid
     grid-template-columns: repeat(1, 1fr)
+    grid-auto-rows: 1fr
     grid-gap: $unit*2
+    margin: 0 auto
     +mq-xs
       grid-template-columns: repeat(2, 1fr)
     +mq-s
       grid-template-columns: repeat(3, 1fr)
     +mq-m
       grid-template-columns: repeat(4, 1fr)
+
+  &__sort-filter
+    grid-column: 1 / -1
+    +mq(520)
+      grid-column: unset
+
 
 </style>

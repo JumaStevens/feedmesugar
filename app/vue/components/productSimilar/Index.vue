@@ -42,7 +42,7 @@ export default {
   },
   computed: {
     similarProducts () {
-      return Object.values(this.products).filter((e, i) => i < 4)
+      return Object.values(this.products).filter((e, i) => i < 4 && e.id !== this.product.id)
     }
   },
   methods: {}

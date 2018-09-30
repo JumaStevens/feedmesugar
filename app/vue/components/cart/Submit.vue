@@ -8,7 +8,7 @@ div(class='container-submit')
     input(
       :class='{ valid: checkout.lineItems.length }'
       type='submit'
-      value='Proceed to checkout'
+      value='Checkout'
       class='submit__checkout'
     )
 
@@ -64,7 +64,7 @@ export default {
     height: $unit*8
     padding: 0 $unit*5
     // border-radius: $unit*3
-    text-transform: capitalize
+    text-transform: uppercase
     background: $grey
     color: $white
 

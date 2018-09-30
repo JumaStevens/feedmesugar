@@ -123,7 +123,12 @@ export default {
     IconSortBy,
     IconFilter
   },
-  props: {},
+  props: {
+    products: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       activeView: 'sort by',
@@ -151,12 +156,7 @@ export default {
     price () { return this.filter.price },
 
 
-    activeColors () { return this.filter.activeColors },
-
-
-    ...mapState({
-      products: state => state.catalog.products
-    })
+    activeColors () { return this.filter.activeColors }
   },
   watch: {
     activeSortBy () {
@@ -235,10 +235,12 @@ export default {
       // find the products max/min price
       const maxPrice = this.maxPrice
       const minPrice = this.minPrice
-      const priceOffset = (maxPrice - minPrice) / 5
+      const priceOffset = Math.round((maxPrice - minPrice) / 5)
       return products.filter(product => {
-        const price = product.variants[0].price
-        return price >= activePrice * maxPrice - priceOffset && price <= activePrice * maxPrice + priceOffset
+        const { price } = product.variants[0]
+        const lowLimit = Math.max(minPrice, activePrice * maxPrice - priceOffset)
+        const highLimit = Math.max(minPrice + priceOffset, activePrice * maxPrice + priceOffset)
+        return price >= lowLimit && price <= highLimit
       })
     },
 
@@ -281,10 +283,10 @@ export default {
     display: grid
     grid-auto-columns: min-content
     grid-auto-flow: column
-    grid-gap: 0 $unit*2
+    grid-gap: 0 $unit*3
     padding: $unit*2 0
     margin: 0 $unit
-    border-bottom: 1px solid rgba(34, 34, 34, 0.05)
+    // border-bottom: 1px solid rgba(34, 34, 34, 0.05)
 
   &__sort-by-button,
   &__filter-button
