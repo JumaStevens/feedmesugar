@@ -2,7 +2,7 @@
 div(class='container-account-promotion')
 
   div(class='account-promotion')
-    h3(class='account-promotion__title') Join the community
+    h3(class='account-promotion__title') Join the Community
 
     ul(class='account-promotion__list')
       li(
@@ -29,10 +29,10 @@ export default {
   data () {
     return {
       benefits: [
-        'Earn points for each purchase.',
+        'Earn rewards for purchases, and leaving product reviews.',
         'Be notified when products you want go on sale.',
         'Receive exclusive offers.',
-        'Faster checkouts—save shipping details.'
+        'Enjoy faster checkouts—save shipping details.'
       ]
     }
   },

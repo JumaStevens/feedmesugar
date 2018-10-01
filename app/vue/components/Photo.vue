@@ -49,7 +49,7 @@ export default {
 
   &__image
     width: 100%
-    height: 100%
+    height: auto
     object-fit: cover
     opacity: 0
     transition: opacity 25ms

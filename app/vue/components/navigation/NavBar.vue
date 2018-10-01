@@ -85,6 +85,7 @@ export default {
   methods: {
     handleHamburgerClick () {
       const { name } = this.route
+      console.log('router: ', this.$router)
       name === 'menu' ? this.$router.go(-1) : this.$router.push({ name: 'menu' })
     },
 

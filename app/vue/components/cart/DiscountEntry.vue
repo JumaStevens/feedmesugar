@@ -118,6 +118,7 @@ export default {
     grid-template-rows: $unit*5
     grid-template-columns: 1fr min-content
     border: 1px solid $success
+    overflow: hidden
     +mq-s
       grid-row: 2 / 3
       justify-self: end

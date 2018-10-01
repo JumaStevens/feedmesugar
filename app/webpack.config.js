@@ -9,7 +9,7 @@ const config = {
   entry: ['babel-polyfill', './vue/main.js'],
   output: {
     path: path.resolve(__dirname, '../firebase/public'),
-    publicPath: '/firebase/public/',
+    publicPath: '/',
     filename: 'bundle.js'
   },
   module: {

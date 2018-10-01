@@ -38,7 +38,7 @@ main(class='container-index')
       h2(class='products-block__header') {{ featuredCollections[1].title }}
       ul(class='products-block__list')
         li(
-          v-for='(product, index) in featuredCollections[1].products'
+          v-for='(product, index) in featuredCollections[1].products.filter((a, i) => i <= 8)'
           :key='product.id'
           class='products-block__item'
         )
@@ -65,7 +65,7 @@ main(class='container-index')
       h2(class='products-block__header') {{ featuredCollections[2].title }}
       ul(class='products-block__list')
         li(
-          v-for='(product, index) in featuredCollections[2].products'
+          v-for='(product, index) in featuredCollections[2].products.filter((a, i) => i <= 8)'
           :key='product.id'
           class='products-block__item'
         )
@@ -178,6 +178,23 @@ export default {
       grid-template-columns: repeat(3, 1fr)
     +mq-m
       grid-template-columns: repeat(4, 1fr)
+
+  &__item
+
+    &:nth-child(n+5)
+      display: none
+      +mq-xs
+        display: unset
+
+    &:nth-child(n+7)
+      +mq-xs
+        display: none
+      +mq-m
+        display: unset
+
+    &:nth-child(n+9)
+      +mq-m
+        display: none
 
   &__link
     width: $unit*20

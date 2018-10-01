@@ -16,5 +16,5 @@ yarn-error.log
 .env
 
 # Compiled output files
-firebase/public/bundle.js
+firebase/public/
 firebase/functions/index.js
