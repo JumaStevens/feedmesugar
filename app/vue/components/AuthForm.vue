@@ -366,7 +366,7 @@ export default {
     text-transform: uppercase
 
     &.valid
-      background: $black
+      background: $success
       cursor: pointer
 
 

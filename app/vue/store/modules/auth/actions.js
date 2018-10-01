@@ -10,6 +10,7 @@ export default {
         // dispatch('presence/authPresence', {}, { root: true })
       } else {
         commit('DELETE_AUTH_USER')
+        dispatch('signInAnonymously')
       }
     })
   },
@@ -21,6 +22,12 @@ export default {
       console.error(e)
       throw e
     }
+  },
+
+
+  async signInAnonymously () {
+    try { await firebase.auth().signInAnonymously() }
+    catch (e) { console.error(e) }
   },
 
 

@@ -9,7 +9,9 @@ div(
 
     Hamburger(
       @handleClick='handleHamburgerClick'
+      @handleBackClick='handleHamburgerBackClick'
       :active='isHamburgerActive'
+      :back='isHamburgerBack'
       class='nav-bar__hamburger'
     )
 
@@ -66,7 +68,13 @@ export default {
   computed: {
     isHamburgerActive () {
       const { name } = this.route
-      return this.conditions.includes(name)
+      return name === 'menu'
+    },
+
+
+    isHamburgerBack () {
+      const { name } = this.route
+      return name !== 'menu' && name !== 'index'
     },
 
 
@@ -77,7 +85,12 @@ export default {
   methods: {
     handleHamburgerClick () {
       const { name } = this.route
-      this.conditions.includes(name) ? this.$router.go(-1) : this.$router.push({ name: 'menu' })
+      name === 'menu' ? this.$router.go(-1) : this.$router.push({ name: 'menu' })
+    },
+
+
+    handleHamburgerBackClick () {
+      this.$router.go(-1)
     }
   }
 }

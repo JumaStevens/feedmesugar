@@ -18,7 +18,7 @@ export default {
   },
   beforeRouteEnter (to, from, next) {
     const authUser = firebase.auth().currentUser
-    authUser ? next() : next({ name: 'auth' })
+    authUser && !authUser.isAnonymous ? next() : next({ name: 'auth' })
   }
 }
 </script>

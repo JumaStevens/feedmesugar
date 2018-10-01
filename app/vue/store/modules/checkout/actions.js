@@ -19,7 +19,7 @@ export default {
   async createCheckout () {
     try {
       const checkout = await shopifyClient.checkout.create()
-      console.log('createCheckout: ', checkout)
+      // console.log('createCheckout: ', checkout)
       return checkout
     }
     catch (e) {
@@ -31,7 +31,7 @@ export default {
   async fetchCheckout ({}, { checkoutId }) {
     try {
       const checkout = await shopifyClient.checkout.fetch(checkoutId)
-      console.log('fetchCheckout: ', checkout)
+      // console.log('fetchCheckout: ', checkout)
       return checkout
     }
     catch (e) {
@@ -58,7 +58,7 @@ export default {
     try {
       const checkoutId = state.id
       const checkout = await shopifyClient.checkout.removeLineItems(checkoutId, lineItems)
-      console.log('removeLineItems: ', checkout)
+      // console.log('removeLineItems: ', checkout)
       commit('SET_CHECKOUT', { checkout })
     }
     catch (e) {
@@ -72,7 +72,7 @@ export default {
       console.log('called it')
       const checkoutId = state.id
       const checkout = await shopifyClient.checkout.updateLineItems(checkoutId, lineItems)
-      console.log('updateLineItems: ', checkout)
+      // console.log('updateLineItems: ', checkout)
       commit('SET_CHECKOUT', { checkout })
     }
     catch (e) {
@@ -85,7 +85,7 @@ export default {
     try {
       const checkoutId = state.id
       const checkout = await shopifyClient.checkout.addDiscount(checkoutId, discountCode)
-      console.log('addDiscount: ', checkout)
+      // console.log('addDiscount: ', checkout)
       commit('SET_CHECKOUT', { checkout })
     }
     catch (e) {

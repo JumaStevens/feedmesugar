@@ -6,10 +6,13 @@ div(class='container-newsletter-subscribe')
     p(class='newsletter-subscribe__copy') Be the first to know about new arrivals and exclusive offers.
 
     form(
-      @submit.prevent=''
+      @submit.prevent='newsletterSubscribe'
       class='newsletter-subscribe__form'
     )
       input(
+        v-model='email'
+        v-validate='"required|email"'
+        name='email'
         type='email'
         placeholder='Your email'
         class='newsletter-subscribe__form-input'
@@ -24,15 +27,48 @@ div(class='container-newsletter-subscribe')
 
 
 <script>
+import firebase, { firestore } from '~/firebase'
+
 
 export default {
   components: {},
   props: {},
   data () {
-    return {}
+    return {
+      email: ''
+    }
   },
   computed: {},
-  methods: {}
+  methods: {
+    async newsletterSubscribe () {
+      try {
+        const { uid } = firebase.auth().currentUser
+
+        const isValid = await this.$validator.validateAll()
+        if (!isValid || !uid) return
+
+        const dbRef = firestore.doc(`queueNewsletterSubscribe/${uid}`)
+        const data = { email: this.email }
+        await dbRef.set(data)
+        await this.handleSuccess()
+        return
+      }
+      catch (e) {
+        console.error(e)
+      }
+    },
+
+
+    handleSuccess () {
+      this.email = 'Thank you! 😁'
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve()
+          this.email = ''
+        }, 3000)
+      })
+    }
+  }
 }
 </script>
 
@@ -88,6 +124,7 @@ export default {
 
     &-input
       height: $unit*5
+      padding: 0 $unit
       background: transparent
 
       &::placeholder

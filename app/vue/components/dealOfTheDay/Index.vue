@@ -163,9 +163,11 @@ export default {
     position: relative
     width: 75%
     max-width: 440px
+    margin-top: $unit*5
     +mq-s
       grid-row: 1 / -1
       grid-column: 2 / 3
+      margin-top: unset
 
     &-image
       box-shadow: 0 $unit*3 $unit*4 rgba(34, 34, 34, 0.075)

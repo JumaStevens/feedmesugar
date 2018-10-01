@@ -19,8 +19,8 @@ main(class='container-index')
     )
 
     CollectionBlock(
-      v-if='featuredCollection'
-      :collection='featuredCollection'
+      v-if='featuredCollections[0]'
+      :collection='featuredCollections[0]'
       :reverse='true'
       class='index__featured-collection'
     )
@@ -31,11 +31,14 @@ main(class='container-index')
       class='index__promotion'
     )
 
-    section(class='products-block')
-      h2(class='products-block__header') New Arrivals
+    section(
+      v-if='featuredCollections[1]'
+      class='products-block'
+    )
+      h2(class='products-block__header') {{ featuredCollections[1].title }}
       ul(class='products-block__list')
         li(
-          v-for='(product, index) in products'
+          v-for='(product, index) in featuredCollections[1].products'
           :key='product.id'
           class='products-block__item'
         )
@@ -43,6 +46,10 @@ main(class='container-index')
             :product='product'
             class='products-block__product'
           )
+      router-link(
+        :to='{ name: "collection", params: { id: featuredCollections[1].id } }'
+        class='products-block__link'
+      ) See More
 
     //- FeaturedProfile(
     //-   class='index__featured-profile'
@@ -51,11 +58,14 @@ main(class='container-index')
       class='index__acount-promotion'
     )
 
-    section(class='products-block')
-      h2(class='products-block__header') Best Sellers
+    section(
+      v-if='featuredCollections[2]'
+      class='products-block'
+    )
+      h2(class='products-block__header') {{ featuredCollections[2].title }}
       ul(class='products-block__list')
         li(
-          v-for='(product, index) in products'
+          v-for='(product, index) in featuredCollections[2].products'
           :key='product.id'
           class='products-block__item'
         )
@@ -63,6 +73,11 @@ main(class='container-index')
             :product='product'
             class='products-block__product'
           )
+      router-link(
+        :to='{ name: "collection", params: { id: featuredCollections[2].id } }'
+        class='products-block__link'
+      ) See More
+
 </template>
 
 
@@ -102,9 +117,10 @@ export default {
     }
   },
   computed: {
-    featuredCollection () {
+    featuredCollections () {
       console.log('collections: ', this.collections)
-      return Object.values(this.collections)[0]
+      const collections = Object.values(this.collections)
+      return this.shuffleArray({ array: collections })
     },
 
 
@@ -118,7 +134,11 @@ export default {
       collections: state => state.catalog.collections
     })
   },
-  methods: {}
+  methods: {
+    shuffleArray ({ array }) {
+      return array.map(a => [Math.random(), a]).sort((a, b) => a[0] - b[0]).map(a => a[1])
+    }
+  }
 }
 </script>
 
@@ -159,7 +179,15 @@ export default {
     +mq-m
       grid-template-columns: repeat(4, 1fr)
 
-
-
+  &__link
+    width: $unit*20
+    height: $unit*5
+    justify-self: center
+    display: flex
+    justify-content: center
+    align-items: center
+    background: $success
+    color: $white
+    box-shadow: 0 24px 32px rgba(33, 206, 156, 0.15)
 
 </style>
