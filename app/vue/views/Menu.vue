@@ -40,8 +40,8 @@ export default {
         { text: 'Home', name: 'index', color: '#5a7fe6' },
         { text: 'Products', name: 'products', color: '#ff87a0' },
         { text: 'Collections', name: 'collections', color: '#ece671' },
-        { text: 'The Culture', name: 'index', color: '#ffcfe2' },
-        { text: 'FAQ', name: 'index', color: '#ff7caa' }
+        // { text: 'The Culture', name: 'index', color: '#ffcfe2' },
+        // { text: 'FAQ', name: 'index', color: '#ff7caa' }
       ],
       paletteColor: '#ffe1e7',
       paletteImage: paletteImage

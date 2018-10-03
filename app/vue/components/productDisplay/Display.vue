@@ -4,7 +4,7 @@ div(class='container-display')
   div(class='display')
 
     Photo(
-      :image='{ src: variant.image.src, aspectRatio: "0 0 1 1" }'
+      :image='{ src: variant.image.src, aspectRatio: "0 0 4 5" }'
       class='display__image'
     )
 
@@ -39,5 +39,6 @@ export default {
 
 .display
   box-shadow: 0 $unit*3 $unit*4 rgba(34, 34, 34, 0.075)
+  padding: $unit
 
 </style>

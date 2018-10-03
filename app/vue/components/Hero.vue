@@ -3,6 +3,8 @@ div(class='container-hero')
 
   div(class='hero')
     header(class='hero__header')
+      div(class='hero__logo')
+        IconLogo(class='hero__logo-svg')
       h1(
         class='hero__title'
       ) {{ header.title }}
@@ -19,11 +21,13 @@ div(class='container-hero')
 
 <script>
 import Photo from '~comp/Photo.vue'
+import IconLogo from '~/assets/svg/icon-logo.svg'
 
 
 export default {
   components: {
-    Photo
+    Photo,
+    IconLogo
   },
   props: {
     image: {
@@ -57,6 +61,7 @@ export default {
     z-index: 6
     align-self: center
     display: grid
+    grid-template-columns: min-content
     grid-gap: $unit
     grid-row: 1 / 2
     grid-column: 1 / -1
@@ -65,9 +70,17 @@ export default {
       margin: 0 0 0 25%
       grid-column: 1 / 2
 
+  &__logo
+    justify-self: center
+
+    &-svg
+      width: $unit*4
+      height: $unit*4
+
   &__title
     font-size: $fs2
     color: $white
+    white-space: nowrap
     +mq-s
       color: $black
 

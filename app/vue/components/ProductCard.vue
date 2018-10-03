@@ -50,9 +50,10 @@ export default {
 .product
   display: grid
   grid-template-rows: repeat(3, min-content)
-  grid-gap: $unit 0
+  // grid-gap: $unit 0
   box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
-  padding: $unit $unit $unit*4 $unit
+  // padding: $unit $unit $unit*4 $unit
+  padding: $unit
   background: $white
 
   &__image
@@ -65,9 +66,11 @@ export default {
     font-size: 12px
     color: $black
     margin-top: $unit*2
+    display: none
 
   &__price
     font-size: 12px
     color: $dark
+    display: none
 
 </style>
