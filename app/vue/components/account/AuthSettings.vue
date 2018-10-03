@@ -13,6 +13,8 @@ div(class='container-auth-settings')
           h4(class='auth-settings__header-title') Name
         FormName(
           v-show='show.name'
+          :name='customerDetails.name'
+          @handleClose='show.name = false'
           class='auth-settings__form'
         )
       li(class='auth-settings__item')
@@ -23,6 +25,8 @@ div(class='container-auth-settings')
           h4(class='auth-settings__header-title') Email Address
         FormEmail(
           v-show='show.email'
+          :emailAddress='{ email: customerDetails.email }'
+          @handleClose='show.email = false'
           class='auth-settings__form'
         )
 
@@ -34,6 +38,7 @@ div(class='container-auth-settings')
           h4(class='auth-settings__header-title') Update Password
         FormPassword(
           v-show='show.password'
+          @handleClose='show.password = false'
           class='auth-settings__form'
         )
 
@@ -45,6 +50,8 @@ div(class='container-auth-settings')
           h4(class='auth-settings__header-title') Shipping Address
         FormAddress(
           v-show='show.address'
+          :shippingAddress='customerDetails.shippingAddress'
+          @handleClose='show.address = false'
           class='auth-settings__form'
         )
 
@@ -56,17 +63,16 @@ div(class='container-auth-settings')
           h4(class='auth-settings__header-title') Phone Number
         FormPhoneNumber(
           v-show='show.phone'
+          :phoneNumber='{ phoneNumber: customerDetails.phoneNumber }'
+          @handleClose='show.phone = false'
           class='auth-settings__form'
         )
-
-
-
-
 
 </template>
 
 
 <script>
+import { mapState } from 'vuex'
 import FormEmail from '~comp/account/FormEmail.vue'
 import FormAddress from '~comp/account/FormAddress.vue'
 import FormPassword from '~comp/account/FormPassword.vue'
@@ -94,7 +100,34 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    customerDetails () {
+      const {
+        firstName = '',
+        lastName = '',
+        email = '',
+        address = '',
+        city = '',
+        state = '',
+        zipcode = '',
+        country = '',
+        phoneNumber = ''
+      } = this.customer
+      console.log('address: ', { address, city, state, zipcode, country })
+
+      return {
+        name: { firstName, lastName },
+        email,
+        shippingAddress: { address, city, state, zipcode, country },
+        phoneNumber
+      }
+    },
+
+
+    ...mapState({
+      customer: state => state.account.customer
+    }),
+  },
   methods: {}
 }
 </script>

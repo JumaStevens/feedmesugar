@@ -3,10 +3,14 @@ div(class='container-search')
 
   div(class='search')
 
-    form(class='search__form')
+    form(
+      @submit.prevent='blur'
+      class='search__form'
+    )
       IconSearch(class='search__icon')
       input(
         v-model='search'
+        ref='search'
         placeholder='Search inventory'
         class='search__input'
       )
@@ -87,7 +91,12 @@ export default {
     })
   },
   methods: {
-    clearSearch () { this.search = '' }
+    clearSearch () { this.search = '' },
+
+
+    blur () {
+      this.$refs.search.blur()
+    }
   }
 }
 </script>

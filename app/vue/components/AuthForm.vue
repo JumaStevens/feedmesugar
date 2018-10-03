@@ -51,6 +51,7 @@ div(class='container-auth-form')
           v-model='password'
           v-validate='activeView === "reset password" ? "" : "required|min:6"'
           name='password'
+          type='password'
           placeholder='Password'
           class='auth-form__input'
         )

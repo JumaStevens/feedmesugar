@@ -24,7 +24,7 @@ div(class='container-account')
 
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 import FileUploader from './FileUploader.vue'
 import ProfileForm from './ProfileForm.vue'
 import IconChevron from '~/assets/svg/icon-chevron.svg'
@@ -63,9 +63,21 @@ export default {
     },
 
 
+    ...mapMutations({
+      deleteCustomer: 'account/DELETE_CUSTOMER'
+    }),
+
+
     ...mapActions({
-      signOut: 'auth/signOut'
+      signOut: 'auth/signOut',
+      watchCustomer: 'account/watchCustomer'
     })
+  },
+  beforeMount () {
+    this.watchCustomer()
+  },
+  beforeDestroy () {
+    this.deleteCustomer()
   }
 }
 </script>

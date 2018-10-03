@@ -1,6 +1,7 @@
 <template lang='pug'>
 //- search form
 form(
+  @submit.prevent=''
   :class='{ active: isFocus }'
   class='search'
 )

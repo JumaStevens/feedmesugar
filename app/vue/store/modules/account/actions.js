@@ -5,10 +5,8 @@ export default {
   async writeName ({}, { firstName, lastName }) {
     try {
       const { uid } = firebase.auth().currentUser
-      const data = { [uid]: { firstName, lastName } }
-
-      const dbRef = firestore.doc('customerQueues/updateName')
-      await dbRef.set(data)
+      const dbRef = firestore.doc(`queueAuthNameUpdate/${uid}`)
+      await dbRef.set({ firstName, lastName })
       return
     }
     catch (e) {
@@ -21,10 +19,8 @@ export default {
   async writeEmail ({}, { email }) {
     try {
       const { uid } = firebase.auth().currentUser
-      const data = { [uid]: { email } }
-
-      const dbRef = firestore.doc('customerQueues/updateEmail')
-      await dbRef.set(data)
+      const dbRef = firestore.doc(`queueAuthEmailUpdate/${uid}`)
+      await dbRef.set({ email })
       return
     }
     catch (e) {
@@ -37,10 +33,8 @@ export default {
   async writeShippingAddress ({}, { address, city, state, zipcode, country }) {
     try {
       const { uid } = firebase.auth().currentUser
-      const data = { [uid]: { address, city, state, zipcode, country } }
-
-      const dbRef = firestore.doc('customerQueues/updateShippingAddress')
-      await dbRef.set(data)
+      const dbRef = firestore.doc(`queueShippingAddressUpdate/${uid}`)
+      await dbRef.set({ address, city, state, zipcode, country })
       return
     }
     catch (e) {
@@ -53,10 +47,8 @@ export default {
   async writePhoneNumber ({}, { phoneNumber }) {
     try {
       const { uid } = firebase.auth().currentUser
-      const data = { [uid]: { phoneNumber } }
-
-      const dbRef = firestore.doc('customerQueues/updatePhoneNumber')
-      await dbRef.set(data)
+      const dbRef = firestore.doc(`queuePhoneNumberUpdate/${uid}`)
+      await dbRef.set({ phoneNumber })
       return
     }
     catch (e) {
@@ -69,7 +61,7 @@ export default {
   watchCustomer ({ commit, dispatch }) {
     const success = (snapshot) => {
       console.log('snapshot: ', snapshot.data())
-      commit('SET_CUSTOMER', { metadata: snapshot.data() })
+      commit('SET_CUSTOMER', { customer: snapshot.data() })
     }
     const error = (err) => console.error(err)
 

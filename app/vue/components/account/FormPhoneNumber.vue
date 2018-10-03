@@ -2,36 +2,85 @@
 div(class='container-form-email')
 
   form(
+    @submit.prevent='validateForm'
     class='form'
   )
-    label(class='label') Country Code
-    input(
-      class='input'
-    )
     label(class='label') Phone Number
     input(
+      v-model='phone'
+      v-validate='"required"'
+      name='phone'
       class='input'
     )
     div(class='buttons')
-      a(class='cancel') Cancel
-      button(
+      a(
+        @click='cancel'
+        class='cancel'
+      ) Cancel
+      input(
+        type='submit'
+        value='save'
         class='submit'
-      ) Save
+      )
 
 </template>
 
 
 <script>
+import { mapActions } from 'vuex'
 
 
 export default {
   components: {},
-  props: {},
+  props: {
+    phoneNumber: {
+      type: Object
+    }
+  },
   data () {
-    return {}
+    return {
+      phone: ''
+    }
   },
   computed: {},
-  methods: {}
+  watch: {
+    phoneNumber () {
+      this.setPhone()
+    }
+  },
+  methods: {
+    setPhone () {
+      const { phoneNumber } = this.phoneNumber
+      this.phone = phoneNumber
+    },
+
+
+    async validateForm () {
+      try {
+        const phoneNumber = this.phone
+
+        const isValid = await this.$validator.validateAll()
+        console.log('isValid: ', isValid)
+        if (!isValid) return
+        await this.writePhoneNumber({ phoneNumber })
+        this.$emit('handleClose')
+      }
+      catch (e) {
+        console.error(e)
+      }
+    },
+
+
+    cancel () {
+      this.setPhone()
+      this.$emit('handleClose')
+    },
+
+
+    ...mapActions({
+      writePhoneNumber: 'account/writePhoneNumber'
+    })
+  }
 }
 </script>
 

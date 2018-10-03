@@ -69,8 +69,15 @@ export default {
   },
 
 
-  async updatePassword ({}, payload) {
-    try { await currentUser().updatePassword(payload.newPassword) }
+  async updatePassword ({ dispatch }, { currentPassword, newPassword }) {
+    try {
+      const { currentUser } = firebase.auth()
+      const credential = firebase.auth.EmailAuthProvider.credential(currentUser.email, currentPassword)
+      const res = await dispatch('reauthenticateAndRetrieveDataWithCredential', { credential })
+      console.log('res: ', res)
+      await currentUser.updatePassword(newPassword)
+      return
+    }
     catch (e) { console.error(e) }
   },
 
@@ -93,8 +100,10 @@ export default {
   },
 
 
-  async reauthenticateWithCredential ({}, payload) {
-    try { await currentUser().reauthenticateWithCredential(payload.credential) }
+  async reauthenticateAndRetrieveDataWithCredential ({}, { credential }) {
+    try {
+      return await firebase.auth().currentUser.reauthenticateAndRetrieveDataWithCredential(credential)
+    }
     catch (e) { console.error(e) }
   },
 
