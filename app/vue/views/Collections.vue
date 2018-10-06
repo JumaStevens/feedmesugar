@@ -4,7 +4,6 @@ div(class='container-collections')
   div(class='collections')
 
     Hero(
-      :image='hero.image'
       :header='hero.header'
       class='collections__hero'
     )
@@ -15,34 +14,29 @@ div(class='container-collections')
         :key='collection.id'
         class='collections__item'
       )
-        CollectionBlock(
+        CollectionProducts(
           :collection='collection'
-          :reverse='index % 2 === 0'
+          class='collections__collection-products'
         )
-        
+
 </template>
 
 
 <script>
 import { mapState } from 'vuex'
 import Hero from '~comp/Hero.vue'
-import CollectionBlock from '~comp/CollectionBlock.vue'
-import heroImage from '~/assets/images/hero_collections.jpg'
+import CollectionProducts from '~comp/CollectionProducts.vue'
 
 
 export default {
   components: {
     Hero,
-    CollectionBlock
+    CollectionProducts
   },
   props: {},
   data () {
     return {
       hero: {
-        image: {
-          src: heroImage,
-          aspectRatio: '0 0 1 1'
-        },
         header: {
           title: 'Shop All Collections',
           copy: 'Curated pieces, just for you'
@@ -63,20 +57,10 @@ export default {
 <style lang='sass' scoped>
 .container-collections
 
-.collections
+
+.collections,
+.collections__list
   display: grid
-  grid-gap: $unit*10
-  justify-items: center
-  +mq-m
-    grid-gap: $unit*20 0
-
-  &__hero
-
-  &__list
-    width: 75%
-    display: grid
-    grid-gap: $unit*10 0
-    +mq-m
-      grid-gap: $unit*20 0
+  grid-gap: $unit*5
 
 </style>

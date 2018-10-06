@@ -2,37 +2,33 @@
 div(class='container-hero')
 
   div(class='hero')
+
     header(class='hero__header')
+
       div(class='hero__logo')
         IconLogo(class='hero__logo-svg')
+
       h1(
+        v-if='header.title'
         class='hero__title'
       ) {{ header.title }}
+
       p(
+        v-if='header.copy'
         class='hero__copy'
       ) {{ header.copy }}
-    Photo(
-      :image='image'
-      class='hero__image'
-    )
-
 </template>
 
 
 <script>
-import Photo from '~comp/Photo.vue'
 import IconLogo from '~/assets/svg/icon-logo.svg'
 
 
 export default {
   components: {
-    Photo,
     IconLogo
   },
   props: {
-    image: {
-      type: Object
-    },
     header: {
       type: Object
     }
@@ -48,30 +44,21 @@ export default {
 
 <style lang='sass' scoped>
 .container-hero
-  width: 100%
+  @extend %container
 
 .hero
+  @extend %content
+  min-height: 50vh
   display: grid
-  grid-template-rows: auto
-  grid-template-columns: repeat(2, 1fr)
-  grid-gap: 0 $unit*5
+  align-items: center
 
   &__header
-    position: relative
-    z-index: 6
-    align-self: center
     display: grid
-    grid-template-columns: min-content
+    justify-items: center
+    align-items: center
     grid-gap: $unit
-    grid-row: 1 / 2
-    grid-column: 1 / -1
-    margin: 0 12.5%
-    +mq-s
-      margin: 0 0 0 25%
-      grid-column: 1 / 2
 
   &__logo
-    justify-self: center
 
     &-svg
       width: $unit*4
@@ -79,22 +66,6 @@ export default {
 
   &__title
     font-size: $fs2
-    color: $white
     white-space: nowrap
-    +mq-s
-      color: $black
-
-  &__copy
-    color: $white
-    +mq-s
-      color: $black
-
-  &__image
-    position: relative
-    z-index: 5
-    grid-row: 1 / 2
-    grid-column: 1 / -1
-    +mq-s
-      grid-column: 2 / 3
 
 </style>

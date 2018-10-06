@@ -2,6 +2,8 @@ const webpack = require('webpack')
 const path = require('path')
 const Dotenv = require('dotenv-webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('babel-polyfill')
 
 
@@ -70,7 +72,14 @@ const config = {
   },
   plugins: [
     new Dotenv(),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../firebase/') }),
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: require('html-webpack-template'),
+      title: 'Feed Me Sugar',
+      appMountId: 'vue-app',
+    })
   ],
   resolve: {
     alias: {

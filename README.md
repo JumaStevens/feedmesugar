@@ -1,13 +1,12 @@
 # Feed Me Sugar
-Feed Me Sugar (codename, currently in ALPHA) is the beginning of an e-commerce storefront.
+Feed Me Sugar, currently in ALPHA, is an e-commerce storefront.
+
 
 ## Documentation
-
 Documentation will be released as project matures.
 
 
 ## Getting Started
-
 ```
 // install dependencies
 $ npm install
@@ -21,5 +20,4 @@ $ npm run build
 
 
 ## Roadmap
-
 Roadmap will be released as project matures.

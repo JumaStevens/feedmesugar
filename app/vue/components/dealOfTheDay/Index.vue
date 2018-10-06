@@ -1,56 +1,53 @@
 <template lang='pug'>
-div(
-  class='container-promotion'
-)
+div(class='container-promotion')
 
   div(class='promotion')
 
-    h3(class='promotion__title') Deal of the day
+    h3(class='promotion__title') Deals of the Day
 
-    div(class='promotion__countdown')
-      span(class='promotion__countdown-time') {{ countDown.hours }}
-      span(class='promotion__countdown-time') :
-      span(class='promotion__countdown-time') {{ countDown.minutes }}
-      span(class='promotion__countdown-time') :
-      span(class='promotion__countdown-time') {{ countDown.seconds }}
-      span(class='promotion__countdown-label') Hours
-      span
-      span(class='promotion__countdown-label') Mins
-      span
-      span(class='promotion__countdown-label') Secs
-
-    router-link(
-      :to='{ name: "product", params: { id: product.id } }'
-      class='promotion__product'
+    Carousel(
+      :paginationEnabled='false'
+      :perPageCustom='[[0, 2], [520, 3], [1024, 4]]'
+      :scrollPerPage='false'
+      class='promotion__list'
     )
-      Photo(
-        :image='image'
-        class='promotion__product-image'
+      Slide(
+        class='promotion__item'
       )
-      p(class='promotion__product-discount')
-        span(class='promotion__product-discount-copy') {{ discountPercent }}%
-        span(class='promotion__product-discount-copy') OFF!
+        div(class='promotion__countdown')
+          h3(class='promotion__countdown-title') Time Remaining
+          p(
+            :style='{ opacity: countDownOpacity ? 1 : 0.25 }'
+            class='promotion__countdown-time'
+          ) {{ countDown.hours }}:{{ countDown.minutes }}:{{ countDown.seconds }}
 
-    router-link(
-      :to='{ name: "product", params: { id: product.id } }'
-      class='promotion__link'
-    ) View Product
-
+      Slide(
+        v-for='(product, index) in products.filter((a, i) => i <= 8)'
+        :key='product.id'
+        class='promotion__item'
+      )
+        ProductCard(
+          :product='product'
+          class='promotion__product'
+        )
 </template>
 
 
 <script>
 import moment from 'moment'
-import Photo from '~comp/Photo.vue'
+import { Carousel, Slide } from 'vue-carousel'
+import ProductCard from '~comp/ProductCard.vue'
 
 
 export default {
   components: {
-    Photo
+    ProductCard,
+    Carousel,
+    Slide
   },
   props: {
-    product: {
-      type: Object,
+    products: {
+      type: Array,
       required: true
     }
   },
@@ -60,26 +57,14 @@ export default {
         hours: '00',
         minutes: '00',
         seconds: '00'
-      }
+      },
+      countDownOpacity: false
     }
   },
-  computed: {
-    discountPercent () {
-      const { price, compareAtPrice } = this.product.variants[0]
-      return Math.round(price * 100 / compareAtPrice - 100) * -1
-    },
-
-
-    image () {
-      return {
-        src: this.product.images[0].src,
-        aspectRatio: '0 0 1 1'
-      }
-    }
-  },
+  computed: {},
   methods: {
     handleCountDown () {
-      const updatedAt = moment(this.product.updatedAt)
+      const updatedAt = moment(this.products[0].updatedAt)
       const end = moment().endOf('day')
       const timeLeft = moment(end.diff(moment() - updatedAt))
 
@@ -88,6 +73,7 @@ export default {
         this.countDown.hours = timeLeft.format('HH')
         this.countDown.minutes = timeLeft.format('mm')
         this.countDown.seconds = timeLeft.format('ss')
+        this.countDownOpacity = !this.countDownOpacity
       }, 1000)
     }
   },
@@ -100,101 +86,42 @@ export default {
 
 <style lang='sass' scoped>
 .container-promotion
-  background: rgba(248, 248, 248, 1)
-  width: 100%
-  padding: $unit*10 0
+  @extend %container
+  // background: rgba(248, 248, 248, 1)
 
 .promotion
-  width: 75%
+  @extend %content
   display: grid
-  justify-items: center
+  grid-template-rows: repeat(2, auto)
+  grid-template-columns: 1fr
   grid-gap: $unit*3 0
-  margin: 0 auto
-  +mq-s
-    grid-template-rows: repeat(5, auto)
-    grid-template-columns: repeat(2, 1fr)
-    grid-gap: $unit*3 $unit*4
 
   &__title
-    font-size: $fs2
-    +mq-s
-      grid-row: 2 / 3
-      grid-column: 1 / 2
-      align-self: end
+    font-size: $fs1
+    font-weight: bold
+    white-space: nowrap
 
   &__countdown
-    display: grid
-    grid-template-rows: repeat(2, min-content)
-    grid-template-columns: repeat(5, min-content)
-    grid-gap: $unit $unit*2
-    +mq-s
-      grid-row: 3 / 4
-      grid-column: 1 / 2
-
-    &-time
-      font-size: $fs2
-      line-height: 1
-
-      &:nth-child(odd)
-        width: 52px
-
-    &-label
-      font-size: 12px
-      color: $dark
-
-  &__link
-    width: $unit*20
-    height: $unit*5
+    height: 100%
     display: flex
+    flex-direction: column
     justify-content: center
     align-items: center
-    // border-radius: $unit*3
-    // border: 1px solid $dark
-    background: $success
-    color: $white
-    box-shadow: 0 24px 32px rgba(33, 206, 156, 0.15)
+    border: 1px solid $grey
 
-    +mq-s
-      grid-row: 4 / 5
-      grid-column: 1 / 2
+    &-title,
+    &-time
+      font-size: 12px
+      color: $dark
+      +mq-s
+        font-size: $fs
 
+    &-time
+      transition: opacity 750ms ease-out
 
-  &__product
-    position: relative
-    width: 75%
-    max-width: 440px
-    margin-top: $unit*5
-    +mq-s
-      grid-row: 1 / -1
-      grid-column: 2 / 3
-      margin-top: unset
+  &__list
 
-    &-image
-      box-shadow: 0 $unit*3 $unit*4 rgba(34, 34, 34, 0.075)
-
-    &-discount
-      position: absolute
-      top: 0
-      right: 0
-      width: $unit*8
-      height: $unit*8
-      transform: translate(50%, -50%) rotate(-15deg)
-      background: $white
-      display: flex
-      flex-direction: column
-      justify-content: center
-      align-items: center
-      border-radius: 50%
-
-      &-copy
-        font-size: $fs1
-        font-weight: bold
-        color: $success
-
-        &:nth-child(2)
-          font-size: 12px
-          font-weight: unset
-
-
+  &__item
+    padding: 0 $unit
 
 </style>

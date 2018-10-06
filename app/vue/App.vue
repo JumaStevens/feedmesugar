@@ -6,6 +6,7 @@ main(
     class='vue-app__nav'
   )
 
+
   transition(
     name='fade'
     mode='out-in'
@@ -84,26 +85,16 @@ export default {
   display: grid
   grid-template-rows: min-content repeat(3, min-content)
   padding-top: $unit*6
-  +mq-m
-    padding: 0 0 0 $unit*6
 
   &__nav
-    grid-row: 1 / 2
 
   &__error,
   &__view
     min-height: calc(100vh - #{$unit*6})
-    grid-row: 2 / 3
-    +mq-m
-      min-height: 100vh
-
 
   &__newsletter-subscribe
-    grid-row: 3 / 4
 
   &__footer
-    grid-row: 4 / 5
-
 
 .fade-enter-active,
 .fade-leave-active

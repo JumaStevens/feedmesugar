@@ -21,9 +21,6 @@ div(
     )
       IconSearch(class='nav-bar__search-icon')
 
-    //- ShopLogo(
-    //-   class='nav-bar__shop-logo'
-    //- )
 
     router-link(
       :to='{ name: "account" }'
@@ -106,33 +103,18 @@ export default {
   z-index: 99
   width: 100%
   height: $unit*6
-  background: $white
-  +mq-m
-    width: $unit*6
-    height: 100vh
+  background: rgba(255, 255, 255, 0.98)
 
 .nav-bar
   height: inherit
   display: grid
   grid-template-rows: auto
   grid-template-columns: auto 1fr repeat(3, auto)
-  padding: 0 $unit*2
   align-items: center
-  +mq-m
-    grid-gap: 0 $unit*2
-    grid-template-rows: 40px 40px 1fr 40px 1fr 40px 40px
-    grid-template-columns: auto
-    align-items: unset
-    justify-items: center
-    padding: $unit*2 0
+  padding: 0 $unit*2
 
   &__hamburger
     grid-column: 1 / 2
-    +mq-m
-      grid-row: 4 / 5
-      grid-column: 1 / 2
-      align-self: center
-
 
   &__search,
   &__account
@@ -142,9 +124,6 @@ export default {
     display: flex
     justify-content: center
     align-items: center
-    +mq-m
-      grid-row: 6 / 7
-      grid-column: 1 / 2
 
     &-icon
       width: $unit*3
@@ -152,20 +131,11 @@ export default {
 
   &__account
     grid-column: 4 / 5
-    +mq-m
-      grid-row: 7 / 8
-      grid-column: 1 / 2
 
     &-icon
       width: 18px
 
   &__bag
     grid-column: 5 / 6
-    +mq-m
-      grid-row: 1 / 2
-      grid-column: 1 / 2
-
-  &__shop-logo
-    justify-self: center
 
 </style>

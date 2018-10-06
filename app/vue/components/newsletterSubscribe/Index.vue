@@ -75,26 +75,25 @@ export default {
 
 <style lang='sass' scoped>
 .container-newsletter-subscribe
-  margin-top: $unit*10
-  background: rgba(212, 228, 241, 1)
+  @extend %container
+  margin-top: $unit*5
+  // background: rgba(212, 228, 241, 1)
 
 .newsletter-subscribe
-  width: 75%
-  max-width: 1024px
+  @extend %content
   display: grid
   grid-gap: $unit*2 0
-  padding: $unit*10 0
-  margin: 0 auto
   +mq-m
     grid-template-rows: repeat(2, auto)
     grid-template-columns: repeat(2, 1fr)
     grid-gap: $unit*2 $unit*5
 
   &__title
-    font-size: $fs2
+    font-size: $fs1
+    font-weight: bold
     +mq-m
       grid-row: 1 / 2
-      grid-column: 1 / 2
+      grid-column: 1 / 3
 
   &__copy
     max-width: 320px
@@ -110,7 +109,7 @@ export default {
     flex-direction: column
     margin-top: $unit*2
     +mq-m
-      grid-row: 1 / -1
+      grid-row: 1 / 3
       grid-column: 2 / 3
       margin-top: unset
 

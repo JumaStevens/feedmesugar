@@ -7,7 +7,7 @@ div(class='container-product')
   )
 
     Photo(
-      :image='{ src: product.images[0].src, aspectRatio: "0 0 1 1" }'
+      :image='{ src: product.images[0].src, aspectRatio: "0 0 268 357" }'
       class='product__image'
     )
     h3(
@@ -16,8 +16,6 @@ div(class='container-product')
     p(
       class='product__price'
     ) ${{ product.variants[0].price }}
-
-
 </template>
 
 
@@ -51,9 +49,9 @@ export default {
   display: grid
   grid-template-rows: repeat(3, min-content)
   // grid-gap: $unit 0
-  box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
+  // box-shadow: 0 0 $unit*3 rgba(34, 34, 34, 0.05)
   // padding: $unit $unit $unit*4 $unit
-  padding: $unit
+  // padding: $unit
   background: $white
 
   &__image

@@ -54,15 +54,15 @@ export default {
 
 <style lang='sass' scoped>
 .container-footer
+  @extend %container
 
 
 .footer
+  @extend %content
   display: grid
   grid-template-rows: repeat(3, auto)
   grid-gap: $unit*5
   justify-items: center
-  padding: $unit*5
-  background: rgba(248, 248, 248, 1)
 
   &__social-list,
   &__nav-list
