@@ -1,10 +1,6 @@
 <template lang='pug'>
 div(class='profile-picture')
   //- user profile
-  Avatar(
-    :userData='currentUser'
-    class='avatar'
-  )
   a(
     @click='submit'
     class='avatar__link'
@@ -30,11 +26,11 @@ div(class='profile-picture')
 <script>
 import { database, storage } from '~/firebase'
 import { mapActions, mapGetters } from 'vuex'
-import Avatar from '~comp/Avatar.vue'
+
 
 export default {
   components: {
-    Avatar
+
   },
   props: {
     configData: {

@@ -2,8 +2,8 @@
 main(
   class='vue-app'
 )
-  Navigation(
-    class='vue-app__nav'
+  NavigationBar(
+    class='vue-app__nav-bar'
   )
 
 
@@ -34,14 +34,14 @@ main(
 <script>
 import { mapState } from 'vuex'
 import Error404 from './views/Error404.vue'
-import Navigation from '~comp/navigation/Index.vue'
+import NavigationBar from '~comp/navigationBar/Index.vue'
 import NewsletterSubscribe from '~comp/newsletterSubscribe/Index.vue'
 import AppFooter from '~comp/footer/Index.vue'
 
 
 export default {
   components: {
-    Navigation,
+    NavigationBar,
     NewsletterSubscribe,
     AppFooter,
     Error404
@@ -83,10 +83,9 @@ export default {
 .vue-app
   min-height: calc(100vh - #{$unit*6})
   display: grid
-  grid-template-rows: min-content repeat(3, min-content)
-  padding-top: $unit*6
 
-  &__nav
+  &__nav-bar
+    height: $unit*6
 
   &__error,
   &__view

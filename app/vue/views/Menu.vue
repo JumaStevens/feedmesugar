@@ -41,7 +41,7 @@ export default {
         { text: 'Products', name: 'products', color: '#ff87a0' },
         { text: 'Collections', name: 'collections', color: '#ece671' },
         // { text: 'The Culture', name: 'index', color: '#ffcfe2' },
-        // { text: 'FAQ', name: 'index', color: '#ff7caa' }
+        { text: 'FAQ', name: 'faq', color: '#ff7caa' }
       ],
       paletteColor: '#ffe1e7',
       paletteImage: paletteImage

@@ -1,10 +1,10 @@
 <template lang='pug'>
 div(
-  class='container-nav-bar'
+  class='container-navigation-bar'
 )
 
   div(
-    class='nav-bar'
+    class='navigation-bar'
   )
 
     Hamburger(
@@ -12,26 +12,26 @@ div(
       @handleBackClick='handleHamburgerBackClick'
       :active='isHamburgerActive'
       :back='isHamburgerBack'
-      class='nav-bar__hamburger'
+      class='navigation-bar__hamburger'
     )
 
     router-link(
       :to='{ name: "search" }'
-      class='nav-bar__search'
+      class='navigation-bar__search'
     )
-      IconSearch(class='nav-bar__search-icon')
+      IconSearch(class='navigation-bar__search-icon')
 
 
     router-link(
       :to='{ name: "account" }'
-      class='nav-bar__account'
+      class='navigation-bar__account'
     )
       IconAccount(
-        class='nav-bar__account-icon'
+        class='navigation-bar__account-icon'
       )
 
     Bag(
-      class='nav-bar__bag'
+      class='navigation-bar__bag'
     )
 
 
@@ -96,22 +96,22 @@ export default {
 
 
 <style lang='sass' scoped>
-.container-nav-bar
-  position: fixed
+.container-navigation-bar
+  position: sticky
   top: 0
   left: 0
   z-index: 99
   width: 100%
-  height: $unit*6
   background: rgba(255, 255, 255, 0.98)
 
-.nav-bar
+.navigation-bar
+  width: 90%
   height: inherit
   display: grid
   grid-template-rows: auto
   grid-template-columns: auto 1fr repeat(3, auto)
   align-items: center
-  padding: 0 $unit*2
+  margin: 0 auto
 
   &__hamburger
     grid-column: 1 / 2

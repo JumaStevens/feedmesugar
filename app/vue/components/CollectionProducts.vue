@@ -15,6 +15,7 @@ div(class='container-collection-products')
       :paginationEnabled='false'
       :perPageCustom='[[0, 2], [520, 3], [1024, 4]]'
       :scrollPerPage='false'
+      :speed='500'
     )
       Slide(
         v-for='(product, index) in collection.products.filter((a, i) => i <= 8)'

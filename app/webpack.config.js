@@ -79,6 +79,12 @@ const config = {
       template: require('html-webpack-template'),
       title: 'Feed Me Sugar',
       appMountId: 'vue-app',
+      meta: [
+        { name: 'author', content: 'Juma Stevens' },
+        { name: 'description', content: 'Online Store' },
+        { name: 'keywords', content: 'store, online, clothing, fashion, shop' }
+      ],
+      mobile: true
     })
   ],
   resolve: {
