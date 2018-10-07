@@ -27,7 +27,7 @@ div(class='container-newsletter-subscribe')
 
 
 <script>
-import firebase, { firestore } from '~/firebase'
+import { firestore, auth } from '~/firebase'
 
 
 export default {
@@ -42,7 +42,7 @@ export default {
   methods: {
     async newsletterSubscribe () {
       try {
-        const { uid } = firebase.auth().currentUser
+        const { uid } = auth().currentUser
 
         const isValid = await this.$validator.validateAll()
         if (!isValid || !uid) return

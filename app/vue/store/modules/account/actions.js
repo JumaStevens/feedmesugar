@@ -1,10 +1,10 @@
-import firebase, { firestore } from '~/firebase'
+import { firestore, auth } from '~/firebase'
 
 
 export default {
   async writeName ({}, { firstName, lastName }) {
     try {
-      const { uid } = firebase.auth().currentUser
+      const { uid } = auth().currentUser
       const dbRef = firestore.doc(`queueAuthNameUpdate/${uid}`)
       await dbRef.set({ firstName, lastName })
       return
@@ -18,7 +18,7 @@ export default {
 
   async writeEmail ({}, { email }) {
     try {
-      const { uid } = firebase.auth().currentUser
+      const { uid } = auth().currentUser
       const dbRef = firestore.doc(`queueAuthEmailUpdate/${uid}`)
       await dbRef.set({ email })
       return
@@ -32,7 +32,7 @@ export default {
 
   async writeShippingAddress ({}, { address, city, state, zipcode, country }) {
     try {
-      const { uid } = firebase.auth().currentUser
+      const { uid } = auth().currentUser
       const dbRef = firestore.doc(`queueShippingAddressUpdate/${uid}`)
       await dbRef.set({ address, city, state, zipcode, country })
       return
@@ -46,7 +46,7 @@ export default {
 
   async writePhoneNumber ({}, { phoneNumber }) {
     try {
-      const { uid } = firebase.auth().currentUser
+      const { uid } = auth().currentUser
       const dbRef = firestore.doc(`queuePhoneNumberUpdate/${uid}`)
       await dbRef.set({ phoneNumber })
       return
@@ -65,7 +65,7 @@ export default {
     }
     const error = (err) => console.error(err)
 
-    const { uid } = firebase.auth().currentUser
+    const { uid } = auth().currentUser
     const dbRef = firestore.doc(`customers/${uid}`)
 
     dbRef.onSnapshot(snapshot => success(snapshot), e => error(e))

@@ -7,10 +7,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('babel-polyfill')
 
 
+// directories
+const rootDir = path.resolve(__dirname, '../../')
+const srcDir = path.resolve(rootDir, 'app/vue/')
+const distDir = path.resolve(rootDir, 'firebase/public/')
+
+
 const config = {
-  entry: ['babel-polyfill', './vue/main.js'],
+  entry: ['babel-polyfill', path.join(srcDir, 'main')],
   output: {
-    path: path.resolve(__dirname, '../firebase/public'),
+    path: distDir,
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -39,7 +45,7 @@ const config = {
           {
             loader: 'sass-resources-loader',
             options: {
-              resources: path.resolve(__dirname, 'vue/assets/sass/global.sass')
+              resources: path.join(srcDir, 'assets/sass/global.sass')
             }
           }
         ]
@@ -73,7 +79,7 @@ const config = {
   plugins: [
     new Dotenv(),
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(['public'], { root: path.resolve(__dirname, '../firebase/') }),
+    new CleanWebpackPlugin(['public'], { root: distDir }),
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
@@ -90,15 +96,15 @@ const config = {
   resolve: {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '~': path.resolve(__dirname, 'vue'),
-      '~comp': path.resolve(__dirname, 'vue', 'components')
+      '~': srcDir,
+      '~comp': path.join(srcDir, 'components')
     }
   },
   devServer: {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    contentBase: path.join(__dirname, '../firebase/public'),
+    contentBase: distDir,
   },
   performance: {
     hints: false

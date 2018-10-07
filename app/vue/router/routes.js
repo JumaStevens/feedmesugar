@@ -1,14 +1,14 @@
-import Index from '~/views/Index.vue'
-import Auth from '~/views/Auth.vue'
-import Account from '~/views/Account.vue'
-import Product from '~/views/Product.vue'
-import Products from '~/views/Products.vue'
-import Collection from '~/views/Collection.vue'
-import Collections from '~/views/Collections.vue'
-import Cart from '~/views/Cart.vue'
-import Menu from '~/views/Menu.vue'
-import Search from '~/views/Search.vue'
-import Faq from '~/views/Faq.vue'
+const Index = () => import('~/views/Index.vue')
+const Auth = () => import('~/views/Auth.vue')
+const Account = () => import('~/views/Account.vue')
+const Product = () => import('~/views/Product.vue')
+const Products = () => import('~/views/Products.vue')
+const Collection = () => import('~/views/Collection.vue')
+const Collections = () => import('~/views/Collections.vue')
+const Cart = () => import('~/views/Cart.vue')
+const Menu = () => import('~/views/Menu.vue')
+const Search = () => import('~/views/Search.vue')
+const Faq = () => import('~/views/Faq.vue')
 
 
 export const routes = [

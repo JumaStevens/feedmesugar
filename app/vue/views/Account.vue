@@ -6,7 +6,7 @@ div
 
 <script>
 import Account from '~comp/account/Index.vue'
-import firebase from '~/firebase'
+import { auth } from '~/firebase'
 
 
 export default {
@@ -17,7 +17,7 @@ export default {
     return {}
   },
   beforeRouteEnter (to, from, next) {
-    const authUser = firebase.auth().currentUser
+    const authUser = auth().currentUser
     authUser && !authUser.isAnonymous ? next() : next({ name: 'auth' })
   }
 }

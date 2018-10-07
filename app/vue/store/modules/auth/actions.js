@@ -1,10 +1,10 @@
-import firebase, { database } from '~/firebase'
+import { database, auth } from '~/firebase'
 
-const currentUser = () => firebase.auth().currentUser
+const currentUser = () => auth().currentUser
 
 export default {
   watchAuthState ({ commit, dispatch }) {
-    firebase.auth().onAuthStateChanged(authUser => {
+    auth().onAuthStateChanged(authUser => {
       if (authUser) {
         commit('SET_AUTH_USER', { authUser })
         // dispatch('presence/authPresence', {}, { root: true })
@@ -17,7 +17,7 @@ export default {
 
 
   async createUserWithEmailAndPassword ({}, { email, password }) {
-    try { await firebase.auth().createUserWithEmailAndPassword(email, password) }
+    try { await auth().createUserWithEmailAndPassword(email, password) }
     catch (e) {
       console.error(e)
       throw e
@@ -26,13 +26,13 @@ export default {
 
 
   async signInAnonymously () {
-    try { await firebase.auth().signInAnonymously() }
+    try { await auth().signInAnonymously() }
     catch (e) { console.error(e) }
   },
 
 
   async signInWithEmailAndPassword ({}, { email, password }) {
-    try { await firebase.auth().signInWithEmailAndPassword(email, password) }
+    try { await auth().signInWithEmailAndPassword(email, password) }
     catch (e) {
       console.error(e)
       return e
@@ -41,7 +41,7 @@ export default {
 
 
   async signOut () {
-    try { await firebase.auth().signOut() }
+    try { await auth().signOut() }
     catch (e) { console.error(e) }
   },
 
@@ -71,8 +71,8 @@ export default {
 
   async updatePassword ({ dispatch }, { currentPassword, newPassword }) {
     try {
-      const { currentUser } = firebase.auth()
-      const credential = firebase.auth.EmailAuthProvider.credential(currentUser.email, currentPassword)
+      const { currentUser } = auth()
+      const credential = auth.EmailAuthProvider.credential(currentUser.email, currentPassword)
       const res = await dispatch('reauthenticateAndRetrieveDataWithCredential', { credential })
       console.log('res: ', res)
       await currentUser.updatePassword(newPassword)
@@ -102,7 +102,7 @@ export default {
 
   async reauthenticateAndRetrieveDataWithCredential ({}, { credential }) {
     try {
-      return await firebase.auth().currentUser.reauthenticateAndRetrieveDataWithCredential(credential)
+      return await auth().currentUser.reauthenticateAndRetrieveDataWithCredential(credential)
     }
     catch (e) { console.error(e) }
   },
@@ -111,7 +111,7 @@ export default {
   async signInWithFacebook ({}, {}) {
     try {
       const provider = new firebase.auth.FacebookAuthProvider()
-      const result = await firebase.auth().signInWithPopup(provider)
+      const result = await auth().signInWithPopup(provider)
       console.log('result: ', result)
     }
     catch (e) {
@@ -123,7 +123,7 @@ export default {
   async signInWithGoogle ({}, {}) {
     try {
       const provider = new firebase.auth.GoogleAuthProvider()
-      const result = await firebase.auth().signInWithPopup(provider)
+      const result = await auth().signInWithPopup(provider)
       console.log('result: ', result)
     }
     catch (e) {
