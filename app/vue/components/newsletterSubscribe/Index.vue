@@ -89,11 +89,14 @@ export default {
     grid-gap: $unit*2 $unit*5
 
   &__title
-    font-size: $fs1
+    font-size: $fs
     font-weight: bold
+    +mq-s
+      font-size: $fs1
     +mq-m
       grid-row: 1 / 2
       grid-column: 1 / 3
+
 
   &__copy
     max-width: 320px

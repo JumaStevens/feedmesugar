@@ -57,10 +57,12 @@ export default {
     grid-gap: $unit*3 $unit*4
 
   &__title
-    font-size: $fs1
+    font-size: $fs
     font-weight: bold
     grid-row: 1 / 2
     grid-column: 1 / -1
+    +mq-s
+      font-size: $fs1
 
   &__list
     display: grid

@@ -83,7 +83,7 @@ export default {
 
 
     image () {
-      return { src: this.variant.image.src, aspectRatio: '0 0 1 1' }
+      return { src: this.variant.image.src, aspectRatio: '0 0 268 357' }
     },
 
 

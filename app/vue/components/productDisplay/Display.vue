@@ -4,7 +4,7 @@ div(class='container-display')
   div(class='display')
 
     Photo(
-      :image='{ src: variant.image.src, aspectRatio: "0 0 4 5" }'
+      :image='{ src: variant.image.src, aspectRatio: "0 0 268 357" }'
       class='display__image'
     )
 

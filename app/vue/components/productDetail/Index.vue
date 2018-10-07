@@ -22,17 +22,17 @@ div(class='container-product-detail')
       class='product-detail__description'
     )
 
-    a(
-      @click='setActiveSection("Reviews")'
-      :class='{ active: activeSection === "Reviews" }'
-      class='product-detail__section'
-    ) Reviews
-
-    Reviews(
-      v-show='activeSection === "Reviews"'
-      :product='product'
-      class='product-detail__reviews'
-    )
+    //- a(
+    //-   @click='setActiveSection("Reviews")'
+    //-   :class='{ active: activeSection === "Reviews" }'
+    //-   class='product-detail__section'
+    //- ) Reviews
+    //-
+    //- Reviews(
+    //-   v-show='activeSection === "Reviews"'
+    //-   :product='product'
+    //-   class='product-detail__reviews'
+    //- )
 
     a(
       @click='setActiveSection("Shipping & Return")'
@@ -74,7 +74,7 @@ export default {
     return {
       sections: [
         'Description',
-        'Reviews',
+        // 'Reviews',
         'Shipping & Return'
       ],
       activeSection: 'Description',
@@ -92,8 +92,11 @@ export default {
 
 <style lang='sass' scoped>
 .container-product-detail
+  @extend %container
+
 
 .product-detail
+  @extend %content
   display: grid
   grid-gap: $unit*3
   +mq-m

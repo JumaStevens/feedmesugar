@@ -9,8 +9,8 @@ div(class='container-menu')
         :key='item.name + index'
         class='menu__item'
       )
-        router-link(
-          :to='{ name: item.name }'
+        a(
+          @click='handleNavigation({ name: item.name })'
           @mouseover.native='changePaletteColor(item.color)'
           class='menu__link'
         ) {{ item.text }}
@@ -18,17 +18,10 @@ div(class='container-menu')
             :style='{ backgroundColor: paletteColor }'
             class='menu__link-strike'
           )
-
-    div(
-      v-lazy:background-image='paletteImage'
-      :style='{ backgroundColor: paletteColor }'
-      class='menu__palette'
-    )
 </template>
 
 
 <script>
-import paletteImage from '~/assets/images/lipstick_girl.jpg'
 
 
 export default {
@@ -43,14 +36,19 @@ export default {
         // { text: 'The Culture', name: 'index', color: '#ffcfe2' },
         { text: 'FAQ', name: 'faq', color: '#ff7caa' }
       ],
-      paletteColor: '#ffe1e7',
-      paletteImage: paletteImage
+      paletteColor: '#ffe1e7'
     }
   },
   computed: {},
   methods: {
     changePaletteColor (color) {
       this.paletteColor = color
+    },
+
+
+    handleNavigation ({ name }) {
+      console.log('name: ', name)
+      this.$router.replace({ name })
     }
   }
 }
@@ -108,35 +106,4 @@ export default {
     &:hover &-strike
       opacity: 0.5
       transform: translate(10%, -50%)
-
-
-  &__palette
-    position: relative
-    width: 100%
-    height: 100%
-    justify-self: end
-    grid-row: 1 / 2
-    grid-column: 2 / 3
-    transition: background-color 350ms ease, opacity 500ms // possible performance issue
-    background-size: cover
-    background-position: center
-    background-blend-mode: exclusion
-    overflow: hidden
-    opacity: 0
-
-    &[lazy='loaded']
-      opacity: 1
-
-    &::after
-      +mq-m
-        content: '#feedmesugar'
-        position: absolute
-        top: 50%
-        left: 50%
-        transform: translate(-50%, -50%)
-        color: $white
-        font-size: $fs3
-        mix-blend-mode: exclusion
-
-
 </style>

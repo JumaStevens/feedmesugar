@@ -65,7 +65,9 @@ export default {
       height: $unit*4
 
   &__title
-    font-size: $fs2
+    font-size: $fs1
     white-space: nowrap
+    +mq-s
+      font-size: $fs2
 
 </style>

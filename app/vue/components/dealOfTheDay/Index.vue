@@ -97,9 +97,11 @@ export default {
   grid-gap: $unit*3 0
 
   &__title
-    font-size: $fs1
+    font-size: $fs
     font-weight: bold
     white-space: nowrap
+    +mq-s
+      font-size: $fs1
 
   &__countdown
     height: 100%

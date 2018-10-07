@@ -19,6 +19,7 @@ main(
       class='vue-app__view'
     )
 
+
   NewsletterSubscribe(
     v-show='!hideFooter.includes(route.name)'
     class='vue-app__newsletter-subscribe'
@@ -91,9 +92,6 @@ export default {
   &__view
     min-height: calc(100vh - #{$unit*6})
 
-  &__newsletter-subscribe
-
-  &__footer
 
 .fade-enter-active,
 .fade-leave-active

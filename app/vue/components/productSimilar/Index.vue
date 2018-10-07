@@ -2,30 +2,21 @@
 div(class='container-product-similar')
 
   div(class='product-similar')
-
-    section(class='products-block')
-      h2(class='products-block__header') You Might Also Like
-      ul(class='products-block__list')
-        li(
-          v-for='(product, index) in similarProducts'
-          :key='product.id'
-          class='products-block__item'
-        )
-          ProductCard(
-            :product='product'
-            class='products-block__product'
-          )
-
+    CollectionProducts(
+      :collection='similarCollection'
+      class='product-similar__collection-products'
+    )
 </template>
 
 
 <script>
-import ProductCard from '~comp/ProductCard.vue'
+import { mapState } from 'vuex'
+import CollectionProducts from '~comp/CollectionProducts.vue'
 
 
 export default {
   components: {
-    ProductCard
+    CollectionProducts
   },
   props: {
     products: {
@@ -41,9 +32,20 @@ export default {
     return {}
   },
   computed: {
-    similarProducts () {
-      return Object.values(this.products).filter((e, i) => i < 4 && e.id !== this.product.id)
-    }
+    similarCollection () {
+      const collection = Object.values(this.collections).find(collection => {
+        return collection.products.find(product => product.id === this.product.id)
+      })
+
+      const products = collection.products.filter(product => product.id !== this.product.id)
+
+      return { ...collection, products, title: 'You Might Also Like' }
+    },
+
+
+    ...mapState({
+      collections: state => state.catalog.collections
+    })
   },
   methods: {}
 }
@@ -52,31 +54,9 @@ export default {
 
 <style lang='sass' scoped>
 .container-product-similar
+  // @extend %container
 
 .product-similar
-  display: grid
-  justify-items: center
 
-
-.products-block
-  display: grid
-  grid-template-rows: repeat(2, auto)
-  grid-gap: $unit*5
-
-  &__header
-    font-size: $fs1
-    text-align: center
-    color: $black
-
-  &__list
-    display: grid
-    grid-template-columns: repeat(1, 1fr)
-    grid-gap: $unit*2
-    +mq-xs
-      grid-template-columns: repeat(2, 1fr)
-    +mq-s
-      grid-template-columns: repeat(3, 1fr)
-    +mq-m
-      grid-template-columns: repeat(4, 1fr)
 
 </style>

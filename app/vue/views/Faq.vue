@@ -53,11 +53,11 @@ export default {
         },
         {
           title: 'What if I need to change or cancel my order?',
-          copy: 'Contact customer support (support@feedmesugar.com) as soon as possible. Once an order is shipped, we’re unable to make any alterations. Should you no longer want your purchase after the fact, you will need to request a refund and send the unwanted items back once received.'
+          copy: 'Contact customer support (support@feedmesugar.com) as soon as possible. Once an order is shipped, we\'re unable to make any alterations. Should you no longer want your purchase after the fact, you will need to request a refund and send the unwanted items back once received.'
         },
         {
           title: 'What if I\'m not satified with the product(s) received?',
-          copy: 'No worries! We offer full refunds, up to the order total, no questioned asked. Request a refund (support@feedmesugar.com) and send the unwanted items back. Once we receive the product(s), a refund will be issued. The product(s) must be returned within 7 days of receiving the order.'
+          copy: 'No worries! We offer full refunds, up to the order total, no questioned asked. Request a refund (support@feedmesugar.com) and send the unwanted items back. Once we receive the product(s), a refund will be issued. The product(s) must be returned within 30 days of receiving the order.'
         },
         {
           title: 'When will my order arrive?',

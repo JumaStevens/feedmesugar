@@ -63,14 +63,13 @@ export default {
   // box-shadow: 0px 0px 0.5rem rgba(33, 33, 33, 0.2)
 
 .product
-  width: 75%
-  max-width: 1024px
+  // width: 75%
+  // max-width: 1024px
   display: grid
-  grid-gap: $unit*10 0
-  margin: $unit*5 auto 0 auto
+  grid-gap: $unit*5 0
+  // margin: $unit*5 auto 0 auto
   +mq-m
-    margin-top: $unit*10
-    grid-gap: $unit*10
+    // margin-top: $unit*10
 
   &__display
 

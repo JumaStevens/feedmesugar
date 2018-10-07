@@ -4,7 +4,6 @@ div(class='container-collection')
 
   div(class='collection')
     Hero(
-      :image='{ src: collection.image.src, aspectRatio: "0 0 1 1" }'
       :header='{ title: collection.title, copy: collection.description }'
       class='collection__hero'
     )
@@ -81,18 +80,14 @@ export default {
 
 .collection
   display: grid
-  grid-gap: $unit*10 0
-  +mq-m
-    grid-gap: $unit*20 0
+  grid-gap: $unit*5 0
 
   &__list
-    width: 75%
-    max-width: 1024px
+    @extend %content
     display: grid
     grid-template-columns: repeat(1, 1fr)
     grid-auto-rows: 1fr
     grid-gap: $unit*2
-    margin: 0 auto
     +mq-xs
       grid-template-columns: repeat(2, 1fr)
     +mq-s

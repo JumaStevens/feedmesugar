@@ -9,7 +9,7 @@ div(class='container-account')
 
     AuthSettings(class='account__auth-settings')
 
-    Orders(class='account__orders')
+    //- Orders(class='account__orders')
 
     //- Points(class='account__points')
 

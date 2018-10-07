@@ -99,8 +99,10 @@ export default {
 <style lang='sass' scoped>
 
 .container-product-display
+  @extend %container
 
 .product-display
+  @extend %content
   display: grid
   grid-gap: $unit*5 0
   +mq-s

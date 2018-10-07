@@ -3,7 +3,6 @@ div(class='container-products')
 
   div(class='products')
     Hero(
-      :image='hero.image'
       :header='hero.header'
       class='products__hero'
     )
@@ -30,7 +29,6 @@ div(class='container-products')
 <script>
 import { mapState } from 'vuex'
 import Hero from '~comp/Hero.vue'
-import heroImage from '~/assets/images/hero_products.jpg'
 import ProductCard from '~comp/ProductCard.vue'
 import ProductSortFilter from '~comp/productSortFilter/Index.vue'
 
@@ -45,10 +43,6 @@ export default {
   data () {
     return {
       hero: {
-        image: {
-          src: heroImage,
-          aspectRatio: '0 0 1 1'
-        },
         header: {
           title: 'Shop All Products',
           copy: 'We got you covered'
@@ -76,20 +70,14 @@ export default {
 
 .products
   display: grid
-  grid-gap: $unit*10 0
-  +mq-m
-    grid-gap: $unit*20 0
-
-  &__hero
+  grid-gap: $unit*5 0
 
   &__list
-    width: 75%
-    max-width: 1024px
+    @extend %content
     display: grid
     grid-template-columns: repeat(1, 1fr)
     grid-auto-rows: 1fr
     grid-gap: $unit*2
-    margin: 0 auto
     +mq-xs
       grid-template-columns: repeat(2, 1fr)
     +mq-s
@@ -101,9 +89,5 @@ export default {
     grid-column: 1 / -1
     +mq(520)
       grid-column: unset
-
-  &__item
-
-  &__product
 
 </style>
