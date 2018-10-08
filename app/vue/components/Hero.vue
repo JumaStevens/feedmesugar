@@ -1,6 +1,8 @@
 <template lang='pug'>
 div(class='container-hero')
 
+  BackgroundShimmer(class='hero--background-shimmer')
+
   div(class='hero')
 
     header(class='hero__header')
@@ -22,11 +24,12 @@ div(class='container-hero')
 
 <script>
 import IconLogo from '~/assets/svg/icon-logo.svg'
-
+import BackgroundShimmer from '~comp/BackgroundShimmer.vue'
 
 export default {
   components: {
-    IconLogo
+    IconLogo,
+    BackgroundShimmer
   },
   props: {
     header: {
@@ -45,6 +48,15 @@ export default {
 <style lang='sass' scoped>
 .container-hero
   @extend %container
+  position: relative
+
+.hero--background-shimmer
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 0
+  left: 0
+
 
 .hero
   @extend %content

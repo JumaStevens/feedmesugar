@@ -24,7 +24,7 @@ div(class='profile-picture')
 
 
 <script>
-import { database, storage } from '~/firebase'
+import { storage } from '~/firebase'
 import { mapActions, mapGetters } from 'vuex'
 
 
@@ -66,7 +66,7 @@ export default {
 
 
     upload (file) {
-      const key = database.ref().push().key
+      const key = '00' // temp, should be a database key
       const url = `${this.configData.url}/${this.currentUser.uid}/${key}`
 
       this.uploadTask = storage.ref(url).put(file);

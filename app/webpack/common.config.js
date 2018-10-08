@@ -15,12 +15,13 @@ const srcDir = path.resolve(rootDir, 'app/vue/')
 const distDir = path.resolve(rootDir, 'firebase/public/')
 
 
-const config = {
+// webpack configurations
+module.exports = {
   entry: ['babel-polyfill', path.join(srcDir, 'main')],
   output: {
     path: distDir,
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: '[name].[chunkhash].bundle.js'
   },
   module: {
     rules: [
@@ -40,15 +41,11 @@ const config = {
           'postcss-loader',
           {
             loader: 'sass-loader',
-            options: {
-              indentedSyntax: true
-            }
+            options: { indentedSyntax: true }
           },
           {
             loader: 'sass-resources-loader',
-            options: {
-              resources: path.join(srcDir, 'assets/sass/global.sass')
-            }
+            options: { resources: path.join(srcDir, 'assets/sass/global.sass') }
           }
         ]
       },
@@ -81,7 +78,8 @@ const config = {
   plugins: [
     new Dotenv(),
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(['public'], { root: distDir }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new CleanWebpackPlugin([distDir], {}),
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
@@ -103,33 +101,5 @@ const config = {
       '~comp': path.join(srcDir, 'components')
     }
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true,
-    contentBase: distDir,
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
+
 }
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
-}
-
-
-// export
-module.exports = config

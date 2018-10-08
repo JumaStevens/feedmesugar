@@ -1,4 +1,4 @@
-import { database, auth } from '~/firebase'
+import { auth } from '~/firebase'
 
 const currentUser = () => auth().currentUser
 
