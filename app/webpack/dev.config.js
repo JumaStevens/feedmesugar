@@ -15,7 +15,6 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   devServer: {
     historyApiFallback: true,
-    hot: true,
     noInfo: true,
     overlay: true,
     contentBase: distDir,

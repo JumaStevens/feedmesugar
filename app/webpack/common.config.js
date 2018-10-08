@@ -6,8 +6,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('babel-polyfill')
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
 
 // directories
 const rootDir = path.resolve(__dirname, '../../')
@@ -21,7 +19,7 @@ module.exports = {
   output: {
     path: distDir,
     publicPath: '/',
-    filename: '[name].[chunkhash].bundle.js'
+    filename: '[name].[hash].bundle.js'
   },
   module: {
     rules: [
@@ -79,7 +77,7 @@ module.exports = {
     new Dotenv(),
     new VueLoaderPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new CleanWebpackPlugin([distDir], {}),
+    new CleanWebpackPlugin(['public'], { root: path.join(rootDir, 'firebase/') }),
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
@@ -91,8 +89,7 @@ module.exports = {
         { name: 'keywords', content: 'store, online, clothing, fashion, shop' }
       ],
       mobile: true
-    }),
-    new BundleAnalyzerPlugin()
+    })
   ],
   resolve: {
     alias: {

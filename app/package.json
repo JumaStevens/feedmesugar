@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --hot --config ./webpack/webpack.config.js",
-    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --open --config ./webpack/dev.config.js",
+    "build:dev": "cross-env NODE_ENV=development webpack-dev-server --hot --open --config ./webpack/dev.config.js",
     "build:prod": "cross-env NODE_ENV=production webpack --progress --hide-modules --watch --config ./webpack/prod.config.js",
     "build": "cross-env NODE_ENV=production webpack --mode production --progress --hide-modules --watch --config ./webpack/webpack.config.js"
   },

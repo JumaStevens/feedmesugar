@@ -3,6 +3,7 @@ const path = require('path')
 const merge = require('webpack-merge')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const commonConfig = require('./common.config')
 
 // directories
@@ -30,7 +31,8 @@ module.exports = merge(commonConfig, {
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
-    })
+    }),
+    new BundleAnalyzerPlugin()
   ],
   optimization: {
     splitChunks: {
