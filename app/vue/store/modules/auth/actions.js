@@ -110,7 +110,7 @@ export default {
 
   async signInWithFacebook ({}, {}) {
     try {
-      const provider = new firebase.auth.FacebookAuthProvider()
+      const provider = new auth.FacebookAuthProvider()
       const result = await auth().signInWithPopup(provider)
       console.log('result: ', result)
     }
@@ -122,7 +122,7 @@ export default {
 
   async signInWithGoogle ({}, {}) {
     try {
-      const provider = new firebase.auth.GoogleAuthProvider()
+      const provider = new auth.GoogleAuthProvider()
       const result = await auth().signInWithPopup(provider)
       console.log('result: ', result)
     }

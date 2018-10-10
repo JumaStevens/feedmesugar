@@ -18,19 +18,19 @@ div(class='container-controller')
       ) {{ size }}
 
     //- color select
-    div(
-      v-if='options.color.length'
-      class='controller__color'
-    )
-      p(class='controller__color-label') Color
-      a(
-        v-for='(color, index) in options.color'
-        :key='color + index'
-        @click='setActiveVariant({ optionValue: color })'
-        :style='{ background: colorOptionHex[color.toLowerCase()] ? colorOptionHex[color.toLowerCase()] : null }'
-        :class='{ active: activeVariant.options.includes(color) }'
-        class='controller__color-button'
-      )
+    //- div(
+    //-   v-if='options.color.length'
+    //-   class='controller__color'
+    //- )
+    //-   p(class='controller__color-label') Color
+    //-   a(
+    //-     v-for='(color, index) in options.color'
+    //-     :key='color + index'
+    //-     @click='setActiveVariant({ optionValue: color })'
+    //-     :style='{ background: colorOptionHex[color.toLowerCase()] ? colorOptionHex[color.toLowerCase()] : null }'
+    //-     :class='{ active: activeVariant.options.includes(color) }'
+    //-     class='controller__color-button'
+    //-   )
 
     //- quantity select
     div(class='controller__quantity')

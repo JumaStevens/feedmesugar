@@ -383,7 +383,7 @@ export default {
     grid-template-columns: repeat(3, min-content)
     grid-gap: 0 $unit
     justify-self: center
-    visibility: hidden
+    visibility: hidden !important
 
   &__copy
     position: relative

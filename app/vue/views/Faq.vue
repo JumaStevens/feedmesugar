@@ -49,7 +49,7 @@ export default {
         },
         {
           title: 'What payment methods do you accept?',
-          copy: 'We accept Visa, MasterCard, and Paypal only.'
+          copy: 'We accept all major credit card payment providers.'
         },
         {
           title: 'What if I need to change or cancel my order?',
