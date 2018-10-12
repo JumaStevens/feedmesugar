@@ -9,6 +9,7 @@ const Cart = () => import('~/views/Cart.vue')
 const Menu = () => import('~/views/Menu.vue')
 const Search = () => import('~/views/Search.vue')
 const Faq = () => import('~/views/Faq.vue')
+const ReferralShare = () => import('~/views/ReferralShare.vue')
 
 
 export const routes = [
@@ -66,5 +67,10 @@ export const routes = [
     path: '/faq',
     name: 'faq',
     component: Faq
+  },
+  {
+    path: '/share/:referralCode',
+    name: 'referralShare',
+    component: ReferralShare
   }
 ]

@@ -5,13 +5,13 @@ div(class='container-account')
 
     header(class='account__header')
       h2(class='account__header-title') Your Account
-      p(class='account__header-copy') Credit: 0 pts
+      p(class='account__header-copy') Referral Credit: {{ referralCredit }}
+
+    Referrals(class='account__referrals')
 
     AuthSettings(class='account__auth-settings')
 
     //- Orders(class='account__orders')
-
-    //- Points(class='account__points')
 
     //-  Reviews
 
@@ -24,24 +24,20 @@ div(class='container-account')
 
 
 <script>
-import { mapMutations, mapActions, mapGetters } from 'vuex'
-import FileUploader from './FileUploader.vue'
-import ProfileForm from './ProfileForm.vue'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import IconChevron from '~/assets/svg/icon-chevron.svg'
 import AuthSettings from '~comp/account/AuthSettings.vue'
 import Orders from '~comp/account/Orders.vue'
-import Points from '~comp/account/Points.vue'
+import Referrals from '~comp/account/Referrals.vue'
 
 
 
 export default {
   components: {
-    FileUploader,
-    ProfileForm,
     IconChevron,
     AuthSettings,
     Orders,
-    Points
+    Referrals
   },
   data () {
     return {
@@ -49,6 +45,17 @@ export default {
     }
   },
   computed: {
+    referralCredit () {
+      const { referralCredit } = this.customer
+      return referralCredit
+    },
+
+
+    ...mapState({
+      customer: state => state.account.customer
+    }),
+
+
     ...mapGetters({
       displayName: 'auth/getCurrentUserDisplayName'
     })
@@ -108,7 +115,7 @@ export default {
 
   &__orders
 
-  &__points
+  &__referrals
 
   &__logout
     width: $unit*15

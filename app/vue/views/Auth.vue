@@ -51,12 +51,8 @@ export default {
     content: ''
     position: absolute
     z-index: -1
-    bottom: 0
-    right: 0
-    width: 0
-    height: 0
-    border-right: calc(100vw - #{$unit * 6}) solid #f8f8f8
-    border-bottom: 100vh solid transparent
+    border-left: 100vw solid #f8f8f8
+    border-bottom: calc(100vh - #{$unit*6}) solid transparent
 
 
 </style>

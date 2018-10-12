@@ -126,7 +126,7 @@ export default {
 
     ...mapState({
       customer: state => state.account.customer
-    }),
+    })
   },
   methods: {}
 }

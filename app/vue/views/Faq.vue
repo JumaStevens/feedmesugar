@@ -57,7 +57,7 @@ export default {
         },
         {
           title: 'What if I\'m not satified with the product(s) received?',
-          copy: 'No worries! We offer full refunds, up to the order total, no questioned asked. Request a refund (support@feedmesugar.com) and send the unwanted items back. Once we receive the product(s), a refund will be issued. The product(s) must be returned within 30 days of receiving the order.'
+          copy: 'No worries! We offer full refunds, up to the order total, no questions asked. Request a refund (support@feedmesugar.com) and send the unwanted items back. Once we receive the product(s), a refund will be issued. The product(s) must be returned within 30 days of receiving the order.'
         },
         {
           title: 'When will my order arrive?',
