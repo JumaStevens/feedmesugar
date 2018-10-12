@@ -8,7 +8,7 @@ div(class='container-estimation')
       h3(class='estimation__detail-title') Estimation
 
       p(class='estimation__detail-order') Order
-      span(class='estimation__detail-order-value') ${{ checkout.totalPrice }}
+      span(class='estimation__detail-order-value') ${{ lineItemsPriceTotal }}
 
       p(class='estimation__detail-shipping') Shipping &amp; Handling
       span(class='estimation__detail-shipping-value') $0.00
@@ -44,11 +44,17 @@ export default {
     return {}
   },
   computed: {
-    discount () {
+    lineItemsPriceTotal () {
       const { subtotalPrice, lineItems } = this.checkout
       const lineItemsPriceTotal = lineItems.reduce((acc, cur) => acc + cur.quantity * cur.variant.price, 0)
-      const discount = Math.round((subtotalPrice - lineItemsPriceTotal) * 100) / 100
-      return discount > 0 ? discount.toString().replace('-','- $') : '$0.00'
+      return lineItemsPriceTotal.toFixed(2)
+    },
+
+
+    discount () {
+      const { subtotalPrice } = this.checkout
+      const discount = (this.lineItemsPriceTotal - subtotalPrice).toFixed(2)
+      return discount > 0 ? `-$${discount}` : '$0.00'
     }
   }
 }

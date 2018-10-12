@@ -85,11 +85,11 @@ export default {
     try {
       const checkoutId = state.id
       const checkout = await shopifyClient.checkout.addDiscount(checkoutId, discountCode)
-      // console.log('addDiscount: ', checkout)
       commit('SET_CHECKOUT', { checkout })
     }
     catch (e) {
       console.error(e)
+      throw e
     }
   }
 }

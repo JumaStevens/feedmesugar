@@ -7,7 +7,6 @@ div(class='container-cart')
   )
 
     CartHeader(
-      :checkout='checkout'
       class='cart__header'
     )
 

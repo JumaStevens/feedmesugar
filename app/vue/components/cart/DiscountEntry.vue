@@ -14,8 +14,9 @@ div(class='container-discount')
     )
       input(
         v-model='discountCode'
-        v-validate='"required|alpha_num|length:9"'
+        v-validate='"required|alpha_dash|min:4|max:9"'
         name='discount'
+        minlength='4'
         maxlength='9'
         placeholder='Discount'
         class='discount__form-input'

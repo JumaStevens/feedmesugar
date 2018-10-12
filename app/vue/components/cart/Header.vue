@@ -2,8 +2,8 @@
 div(class='container-header')
 
   header(class='header')
-    h2(class='header__title') Your Shopping Bag
-    p(class='header__copy') Review of {{ lineItemsQuantityTotal }} item(s) ${{ checkout.totalPrice }}
+    h2(class='header__title') Shopping Bag
+    p(class='header__copy') Review of {{ lineItemsQuantityTotal }} item(s)
 
 </template>
 
@@ -12,13 +12,6 @@ div(class='container-header')
 import { mapGetters } from 'vuex'
 
 export default {
-  components: {},
-  props: {
-    checkout: {
-      type: Object,
-      required: true
-    }
-  },
   data () {
     return {}
   },
